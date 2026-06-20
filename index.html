@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snap Studio - Photobooth Digital by Ahmad Rosyid</title>
+    <meta name="description" content="Gunakan Snap Studio untuk pengalaman photobooth digital yang seru, otomatis, dan gratis langsung dari browser kamu. Karya Ahmad Rosyid.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&family=Playfair+Display:ital,wght@1,900&family=JetBrains+Mono:wght@800&family=Bebas+Neue&family=Pacifico&family=Space+Grotesk:wght@700&family=Syne:wght@800&family=Abril+Fatface&family=Outfit:wght@900&family=Unbounded:wght@900&family=Righteous&family=Bungee&family=Fraunces:ital,opsz,wght@1,9..144,900&family=Monoton&family=Modak&family=Press+Start+2P&family=Permanent+Marker&family=Alumni+Sans+Inline+One&family=Kablammo&family=Honk&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="flex flex-col relative min-h-screen">
+
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-xl border-b border-black/5 transition-all">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-3xl font-black italic tracking-tighter text-blue-600 uppercase hover:scale-105 transition-transform cursor-pointer">Snap Studio</span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 font-bold text-sm uppercase tracking-wider text-slate-600">
+                <a href="#fitur" class="hover:text-blue-600 transition-colors">Fitur</a>
+                <a href="#versi" class="hover:text-blue-600 transition-colors">Versi</a>
+                <a href="#kreator" class="hover:text-blue-600 transition-colors">Kreator</a>
+                <a href="https://ahmadrosyidbaru-sys.github.io/photoboth/" target="_blank" class="btn btn-primary px-6 py-3 rounded-xl text-xs flex items-center justify-center">Coba Sekarang</a>
+            </div>
+
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-slate-800 hover:text-blue-600 transition-colors">
+                <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            </button>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-xl border-b border-black/5 px-6 py-4 flex-col gap-4 font-bold text-sm uppercase tracking-wider shadow-2xl absolute w-full">
+            <a href="#fitur" onclick="toggleMobileMenu()" class="block py-2 hover:text-blue-600">Fitur</a>
+            <a href="#versi" onclick="toggleMobileMenu()" class="block py-2 hover:text-blue-600">Versi</a>
+            <a href="#kreator" onclick="toggleMobileMenu()" class="block py-2 hover:text-blue-600">Kreator</a>
+            <a href="https://ahmadrosyidbaru-sys.github.io/photoboth/" target="_blank" class="btn btn-primary w-full py-4 mt-2 rounded-xl text-xs text-center block">Coba Sekarang</a>
+        </div>
+    </nav>
+
+    <header class="pt-32 pb-20 px-6 pattern-bg min-h-[90vh] flex flex-col items-center justify-center text-center relative overflow-hidden">
+        
+        <div class="absolute top-20 left-1/4 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob z-0"></div>
+        <div class="absolute top-40 right-1/4 w-72 h-72 bg-cyan-300 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob animation-delay-2000 z-0"></div>
+        <div class="absolute -bottom-8 left-1/3 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob animation-delay-4000 z-0"></div>
+
+        <div class="max-w-4xl mx-auto z-10 space-y-8 animate-[slideUp_0.8s_ease]">
+            <div class="inline-block px-4 py-2 bg-blue-100 text-blue-700 font-black text-[10px] uppercase tracking-[0.2em] rounded-full mb-4 shadow-sm border border-blue-200 hover:scale-105 transition-transform cursor-default">
+                Web Photobooth No. 1
+            </div>
+            <h1 class="text-6xl md:text-8xl font-black tracking-tight leading-tight uppercase text-slate-900">
+                Bawa <span class="gradient-text italic">Studio</span><br>Ke Layar Kamu.
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed">
+                Platform photobooth digital paling interaktif! Tanpa perlu install aplikasi. Abadikan momen seru bareng teman dengan puluhan font, filter warna, dan template kekinian langsung dari browser.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
+                <a href="https://ahmadrosyidbaru-sys.github.io/photoboth/" target="_blank" class="btn btn-primary px-10 py-5 rounded-2xl text-lg w-full sm:w-auto shadow-xl shadow-blue-500/30 text-center flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                    COBAIN SEKARANG
+                </a>
+                <a href="#versi" class="btn btn-choice px-10 py-5 rounded-2xl text-lg w-full sm:w-auto flex items-center justify-center text-center">
+                    Lihat Semua Versi
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute top-1/4 left-10 md:left-20 w-24 h-32 bg-blue-500/10 rounded-xl border border-blue-500/20 backdrop-blur-sm animate-float-1 z-0"></div>
+        <div class="absolute bottom-1/4 right-10 md:right-20 w-32 h-32 bg-slate-900/5 rounded-full border border-slate-900/10 backdrop-blur-sm animate-float-2 z-0"></div>
+    </header>
+
+    <section id="fitur" class="py-24 px-6 bg-white border-y border-slate-200 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tight text-slate-900">Kenapa Snap Studio?</h2>
+                <p class="text-slate-500 mt-4 font-medium max-w-2xl mx-auto">Pengalaman maksimal dengan performa mulus. Dirancang khusus untuk momen spontan bersama teman atau keluarga.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/10 transition-all group reveal reveal-delay-1">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                    </div>
+                    <h3 class="text-xl font-black uppercase mb-3 text-slate-800">100% Berbasis Web</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Selamat tinggal proses instalasi yang ribet! Tinggal buka link, berikan izin kamera pada browser, dan langsung jepret. Kompatibel di PC, Laptop, maupun Smartphone.</p>
+                </div>
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/10 transition-all group reveal reveal-delay-2">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 16-5.16-5.16a2 2 0 0 0-2.83 0l-5.18 5.18"/><path d="m14 11-1.16-1.16a2 2 0 0 0-2.83 0L3 16"/><circle cx="12" cy="12" r="10"/></svg>
+                    </div>
+                    <h3 class="text-xl font-black uppercase mb-3 text-slate-800">Kustomisasi Ekstrem</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Bebaskan kreativitasmu. Pilih dari puluhan Google Fonts nyentrik, atur warna background sesukamu, dan terapkan filter visual seperti Vintage atau Black & White.</p>
+                </div>
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/10 transition-all group reveal reveal-delay-3">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    </div>
+                    <h3 class="text-xl font-black uppercase mb-3 text-slate-800">Cetak & Unduh HD</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Hasil foto diraster dalam resolusi tinggi yang siap masuk ke feeds sosial mediamu atau dicetak ke kertas foto asli. Unduh dengan sekali klik tanpa watermark!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="versi" class="py-24 px-6 bg-slate-900 text-white pattern-bg relative" style="background-image: radial-gradient(rgba(255,255,255,0.08) 2px, transparent 2px);">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-transparent to-slate-900 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tight text-white">Evolusi Snap Studio</h2>
+                <p class="text-slate-400 mt-4 font-medium max-w-2xl mx-auto">Dari eksperimen sederhana hingga menjadi platform lengkap. Pilih versi yang paling pas buat gaya tongkronganmu.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6 items-stretch">
+                <div class="flex flex-col bg-slate-800/60 backdrop-blur-md border border-slate-700 p-8 rounded-3xl hover:border-slate-500 hover:-translate-y-2 transition-all duration-300 reveal reveal-delay-1 group">
+                    <div class="flex-grow">
+                        <div class="text-5xl font-black italic text-slate-600 mb-6 group-hover:text-slate-400 transition-colors">V.1</div>
+                        <h3 class="text-2xl font-black uppercase text-white mb-3">Awal Mula</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            Versi fondasi pertama yang dibangun sebagai purwarupa. Fokus utamanya adalah membuktikan bahwa teknologi browser modern (WebRTC & HTML5 Canvas) mampu menangani proses penggabungan gambar layaknya mesin photobooth sungguhan tanpa memerlukan server backend yang rumit. Simpel, cepat, dan ringan.
+                        </p>
+                    </div>
+                    <a href="https://ahmadrosyidbaru-sys.github.io/photoboth/" target="_blank" class="btn bg-slate-700 text-white hover:bg-slate-600 w-full py-4 mt-8 rounded-xl text-center flex items-center justify-center gap-2">
+                        Coba Versi 1
+                    </a>
+                </div>
+                
+                <div class="flex flex-col bg-blue-600/10 backdrop-blur-md border border-blue-500 p-8 rounded-3xl relative overflow-hidden transform md:-translate-y-4 shadow-2xl shadow-blue-900/50 hover:shadow-blue-600/40 hover:-translate-y-6 transition-all duration-300 reveal reveal-delay-2 group">
+                    <div class="absolute -top-6 -right-8 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-10 py-8 rotate-45 shadow-lg">Populer</div>
+                    <div class="flex-grow">
+                        <div class="text-6xl font-black italic text-blue-500 mb-4 group-hover:scale-105 origin-left transition-transform">V.2</div>
+                        <h3 class="text-2xl font-black uppercase text-white mb-3">Era Kustomisasi</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-4">
+                            Pembaruan masif pada User Interface dan fungsionalitas. Di versi ini, kami menyuntikkan kebebasan penuh kepada pengguna.
+                        </p>
+                        <ul class="text-sm text-slate-400 space-y-2 mb-4 font-medium">
+                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div> Pilihan Layout (Grid & Strip)</li>
+                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div> Filter Warna Real-time</li>
+                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div> Color Picker Interaktif</li>
+                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div> >15 Pilihan Font Nyentrik</li>
+                        </ul>
+                    </div>
+                    <a href="https://ahmadrosyidbaru-sys.github.io/Cyberpunk-Modern/" target="_blank" class="btn btn-primary w-full py-4 mt-8 rounded-xl text-center shadow-lg shadow-blue-600/30">
+                        Coba Versi 2
+                    </a>
+                </div>
+                
+                <div class="flex flex-col bg-slate-800/60 backdrop-blur-md border border-slate-700 p-8 rounded-3xl hover:border-amber-500 hover:-translate-y-2 transition-all duration-300 reveal reveal-delay-3 group">
+                    <div class="flex-grow">
+                        <div class="text-5xl font-black italic text-slate-600 mb-6 group-hover:text-amber-500 transition-colors">SPX</div>
+                        <h3 class="text-2xl font-black uppercase text-amber-400 mb-3">Edisi Tematik</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            Membuktikan seberapa fleksibel kode dasar Snap Studio. Edisi pertama dirilis khusus untuk menyambut Idul Adha dengan kustomisasi bingkai framing khusus, elemen stiker yang meriah, dan palet warna tematik yang langsung bisa dipakai. Cocok untuk acara spesifik dan seasonal!
+                        </p>
+                    </div>
+                    <a href="https://ahmadrosyidbaru-sys.github.io/SnapxIED/" target="_blank" class="btn bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-amber-500 hover:text-slate-900 w-full py-4 mt-8 rounded-xl text-center transition-all">
+                        Coba Edisi Spesial
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kreator" class="py-24 px-6 bg-white border-b border-slate-200">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 reveal">
+            <div class="w-56 h-56 md:w-72 md:h-72 rounded-[2.5rem] bg-slate-100 overflow-hidden border-8 border-white shadow-2xl shadow-slate-200 flex-shrink-0 relative group transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                
+                <img src="foto-profil.jpg" alt="Ahmad Rosyid" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute -bottom-4 -left-4 bg-slate-900 text-white text-[10px] font-black uppercase px-4 py-2 rounded-xl -rotate-12 shadow-lg">
+                    
+                </div>
+            </div>
+            
+            <div class="text-center md:text-left space-y-6">
+                <div>
+                    <p class="text-blue-600 font-black uppercase tracking-widest text-sm mb-2 flex items-center justify-center md:justify-start gap-2">
+                        <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                        Creator & Developer
+                    </p>
+                    <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tight text-slate-900">Ahmad Rosyid</h2>
+                </div>
+                <p class="text-slate-600 leading-relaxed font-medium text-lg">
+                    Halo! Gw adalah tangan di balik kode <strong>Snap Studio</strong>. Proyek ini awalnya cuma sekadar keisengan buat ngulik integrasi Camera API dan modifikasi Canvas di browser. Tapi karena responsnya positif, eh malah keterusan ngembangin sampai Versi 2 yang jauh lebih interaktif.
+                </p>
+                <p class="text-slate-500 leading-relaxed">
+                    Gw percaya teknologi yang keren itu nggak harus ribet di-install. Snap Studio adalah bentuk dari kecintaan gw bikin interaksi web yang mulus, fungsional, dan pastinya gratis buat seru-seruan bareng temen tongkrongan.
+                </p>
+                <div class="pt-6 flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
+                    <a href="https://instagram.com/ahmdrosyidd" target="_blank" class="inline-flex items-center justify-center gap-3 bg-slate-900 text-white px-8 py-4 rounded-xl font-bold uppercase text-sm hover:bg-blue-600 transition-colors shadow-lg shadow-slate-900/20 w-full sm:w-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        Follow @ahmdrosyidd
+                    </a>
+                    <a href="https://github.com/ahmadrosyidbaruu-sys" target="_blank" class="inline-flex items-center justify-center gap-3 bg-slate-100 text-slate-700 px-8 py-4 rounded-xl font-bold uppercase text-sm hover:bg-slate-200 transition-colors w-full sm:w-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                        Lihat GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-slate-400 font-bold text-xs uppercase tracking-widest bg-slate-50 border-t border-slate-200">
+        <p>&copy; 2026 Snap Studio by Ahmad Rosyid. jika ada kendala hubungi instagram @ahmdrosyidd.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
