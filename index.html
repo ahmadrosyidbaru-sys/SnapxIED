@@ -3,206 +3,703 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snap Studio - Photobooth Digital by Ahmad Rosyid</title>
-    <meta name="description" content="Gunakan Snap Studio untuk pengalaman photobooth digital yang seru, otomatis, dan gratis langsung dari browser kamu. Karya Ahmad Rosyid.">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&family=Playfair+Display:ital,wght@1,900&family=JetBrains+Mono:wght@800&family=Bebas+Neue&family=Pacifico&family=Space+Grotesk:wght@700&family=Syne:wght@800&family=Abril+Fatface&family=Outfit:wght@900&family=Unbounded:wght@900&family=Righteous&family=Bungee&family=Fraunces:ital,opsz,wght@1,9..144,900&family=Monoton&family=Modak&family=Press+Start+2P&family=Permanent+Marker&family=Alumni+Sans+Inline+One&family=Kablammo&family=Honk&display=swap" rel="stylesheet">
+    <title>CUCI SPATU | Layanan Cuci Sepatu Antar Jemput Serang</title>
     
-    <link rel="stylesheet" href="style.css">
+    <!-- Fonts: Inter untuk kesan bersih dan modern -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Library untuk generate Struk menjadi Gambar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- Konfigurasi Tema Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0455BF', // Warna utama biru profesional
+                        dark: '#111827',
+                        light: '#F9FAFB',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0455BF; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #033c87; }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #0455BF 0%, #1e3a8a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Invoice Pattern */
+        .invoice-bg {
+            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
 </head>
-<body class="flex flex-col relative min-h-screen">
+<body class="text-gray-800 antialiased selection:bg-primary selection:text-white">
 
-    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-xl border-b border-black/5 transition-all">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <span class="text-3xl font-black italic tracking-tighter text-blue-600 uppercase hover:scale-105 transition-transform cursor-pointer">Snap Studio</span>
-            </div>
-            
-            <div class="hidden md:flex items-center gap-8 font-bold text-sm uppercase tracking-wider text-slate-600">
-                <a href="#fitur" class="hover:text-blue-600 transition-colors">Fitur</a>
-                <a href="#versi" class="hover:text-blue-600 transition-colors">Versi</a>
-                <a href="#kreator" class="hover:text-blue-600 transition-colors">Kreator</a>
-                <a href="https://ahmadrosyidbaru-sys.github.io/photoboth/" target="_blank" class="btn btn-primary px-6 py-3 rounded-xl text-xs flex items-center justify-center">Coba Sekarang</a>
-            </div>
-
-            <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-slate-800 hover:text-blue-600 transition-colors">
-                <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+    <!-- Pop-up Promo Awal -->
+    <div id="promoModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300 p-4">
+        <div class="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 relative">
+            <button onclick="closePromo()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 bg-white/50 backdrop-blur rounded-full p-2 transition z-10">
+                <i class="fas fa-times"></i>
             </button>
-        </div>
-        
-        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-xl border-b border-black/5 px-6 py-4 flex-col gap-4 font-bold text-sm uppercase tracking-wider shadow-2xl absolute w-full">
-            <a href="#fitur" onclick="toggleMobileMenu()" class="block py-2 hover:text-blue-600">Fitur</a>
-            <a href="#versi" onclick="toggleMobileMenu()" class="block py-2 hover:text-blue-600">Versi</a>
-            <a href="#kreator" onclick="toggleMobileMenu()" class="block py-2 hover:text-blue-600">Kreator</a>
-            <a href="https://ahmadrosyidbaru-sys.github.io/photoboth/" target="_blank" class="btn btn-primary w-full py-4 mt-2 rounded-xl text-xs text-center block">Coba Sekarang</a>
-        </div>
-    </nav>
-
-    <header class="pt-32 pb-20 px-6 pattern-bg min-h-[90vh] flex flex-col items-center justify-center text-center relative overflow-hidden">
-        
-        <div class="absolute top-20 left-1/4 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob z-0"></div>
-        <div class="absolute top-40 right-1/4 w-72 h-72 bg-cyan-300 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob animation-delay-2000 z-0"></div>
-        <div class="absolute -bottom-8 left-1/3 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob animation-delay-4000 z-0"></div>
-
-        <div class="max-w-4xl mx-auto z-10 space-y-8 animate-[slideUp_0.8s_ease]">
-            <div class="inline-block px-4 py-2 bg-blue-100 text-blue-700 font-black text-[10px] uppercase tracking-[0.2em] rounded-full mb-4 shadow-sm border border-blue-200 hover:scale-105 transition-transform cursor-default">
-                Web Photobooth No. 1
+            <div class="bg-primary p-6 text-center text-white">
+                <h3 class="text-2xl font-black italic mb-1 uppercase tracking-wider">Promo Spesial!</h3>
+                <p class="text-blue-100 text-sm">Terbatas untuk pelanggan Kota Serang</p>
             </div>
-            <h1 class="text-6xl md:text-8xl font-black tracking-tight leading-tight uppercase text-slate-900">
-                Bawa <span class="gradient-text italic">Studio</span><br>Ke Layar Kamu.
-            </h1>
-            <p class="text-lg md:text-xl text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed">
-                Platform photobooth digital paling interaktif! Tanpa perlu install aplikasi. Abadikan momen seru bareng teman dengan puluhan font, filter warna, dan template kekinian langsung dari browser.
-            </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
-                <a href="https://ahmadrosyidbaru-sys.github.io/photoboth/" target="_blank" class="btn btn-primary px-10 py-5 rounded-2xl text-lg w-full sm:w-auto shadow-xl shadow-blue-500/30 text-center flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-                    COBAIN SEKARANG
-                </a>
-                <a href="#versi" class="btn btn-choice px-10 py-5 rounded-2xl text-lg w-full sm:w-auto flex items-center justify-center text-center">
-                    Lihat Semua Versi
-                </a>
+            <div class="p-6 text-center">
+                <div class="text-5xl font-black text-primary mb-2">3 Pasang</div>
+                <div class="text-3xl font-bold text-gray-800 mb-4">Hanya Rp 100K</div>
+                <p class="text-gray-500 mb-6 text-sm">Deep Clean / Fast Clean. Gratis antar jemput se-Kota Serang tanpa minimal order!</p>
+                <button onclick="closePromo(); openOrderModal();" class="w-full bg-primary hover:bg-blue-800 text-white font-bold py-3 px-4 rounded-full transition shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center">
+                    Klaim Promo & Order <i class="fas fa-arrow-right ml-2"></i>
+                </button>
             </div>
         </div>
-        
-        <div class="absolute top-1/4 left-10 md:left-20 w-24 h-32 bg-blue-500/10 rounded-xl border border-blue-500/20 backdrop-blur-sm animate-float-1 z-0"></div>
-        <div class="absolute bottom-1/4 right-10 md:right-20 w-32 h-32 bg-slate-900/5 rounded-full border border-slate-900/10 backdrop-blur-sm animate-float-2 z-0"></div>
+    </div>
+
+    <!-- Header Navbar -->
+    <header class="fixed top-0 w-full z-40 glass-effect transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="font-black italic leading-none text-xl sm:text-2xl text-primary tracking-tighter">
+                        CUCI<br><span class="text-dark">SPATU</span>
+                    </div>
+                </div>
+                <!-- Nav Links (Desktop) -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#services" class="text-gray-600 hover:text-primary font-medium transition">Layanan</a>
+                    <a href="#contact" class="text-gray-600 hover:text-primary font-medium transition">Lokasi & Kontak</a>
+                </nav>
+                <!-- CTA Header -->
+                <div>
+                    <button onclick="openOrderModal()" class="bg-dark hover:bg-black text-white px-5 py-2.5 rounded-full font-bold text-sm transition shadow-md flex items-center">
+                        <i class="fas fa-motorcycle mr-2"></i> Order <span class="hidden sm:inline ml-1">Sekarang</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <section id="fitur" class="py-24 px-6 bg-white border-y border-slate-200 relative">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tight text-slate-900">Kenapa Snap Studio?</h2>
-                <p class="text-slate-500 mt-4 font-medium max-w-2xl mx-auto">Pengalaman maksimal dengan performa mulus. Dirancang khusus untuk momen spontan bersama teman atau keluarga.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/10 transition-all group reveal reveal-delay-1">
-                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-                    </div>
-                    <h3 class="text-xl font-black uppercase mb-3 text-slate-800">100% Berbasis Web</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Selamat tinggal proses instalasi yang ribet! Tinggal buka link, berikan izin kamera pada browser, dan langsung jepret. Kompatibel di PC, Laptop, maupun Smartphone.</p>
-                </div>
-                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/10 transition-all group reveal reveal-delay-2">
-                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 16-5.16-5.16a2 2 0 0 0-2.83 0l-5.18 5.18"/><path d="m14 11-1.16-1.16a2 2 0 0 0-2.83 0L3 16"/><circle cx="12" cy="12" r="10"/></svg>
-                    </div>
-                    <h3 class="text-xl font-black uppercase mb-3 text-slate-800">Kustomisasi Ekstrem</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Bebaskan kreativitasmu. Pilih dari puluhan Google Fonts nyentrik, atur warna background sesukamu, dan terapkan filter visual seperti Vintage atau Black & White.</p>
-                </div>
-                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/10 transition-all group reveal reveal-delay-3">
-                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                    </div>
-                    <h3 class="text-xl font-black uppercase mb-3 text-slate-800">Cetak & Unduh HD</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Hasil foto diraster dalam resolusi tinggi yang siap masuk ke feeds sosial mediamu atau dicetak ke kertas foto asli. Unduh dengan sekali klik tanpa watermark!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="versi" class="py-24 px-6 bg-slate-900 text-white pattern-bg relative" style="background-image: radial-gradient(rgba(255,255,255,0.08) 2px, transparent 2px);">
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-transparent to-slate-900 pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tight text-white">Evolusi Snap Studio</h2>
-                <p class="text-slate-400 mt-4 font-medium max-w-2xl mx-auto">Dari eksperimen sederhana hingga menjadi platform lengkap. Pilih versi yang paling pas buat gaya tongkronganmu.</p>
-            </div>
+    <main class="pt-16">
+        <!-- Hero Section -->
+        <section class="relative bg-white overflow-hidden">
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-blue-50 opacity-50 blur-3xl"></div>
             
-            <div class="grid md:grid-cols-3 gap-6 items-stretch">
-                <div class="flex flex-col bg-slate-800/60 backdrop-blur-md border border-slate-700 p-8 rounded-3xl hover:border-slate-500 hover:-translate-y-2 transition-all duration-300 reveal reveal-delay-1 group">
-                    <div class="flex-grow">
-                        <div class="text-5xl font-black italic text-slate-600 mb-6 group-hover:text-slate-400 transition-colors">V.1</div>
-                        <h3 class="text-2xl font-black uppercase text-white mb-3">Awal Mula</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">
-                            Versi fondasi pertama yang dibangun sebagai purwarupa. Fokus utamanya adalah membuktikan bahwa teknologi browser modern (WebRTC & HTML5 Canvas) mampu menangani proses penggabungan gambar layaknya mesin photobooth sungguhan tanpa memerlukan server backend yang rumit. Simpel, cepat, dan ringan.
-                        </p>
-                    </div>
-                    <a href="https://ahmadrosyidbaru-sys.github.io/photoboth/" target="_blank" class="btn bg-slate-700 text-white hover:bg-slate-600 w-full py-4 mt-8 rounded-xl text-center flex items-center justify-center gap-2">
-                        Coba Versi 1
-                    </a>
-                </div>
-                
-                <div class="flex flex-col bg-blue-600/10 backdrop-blur-md border border-blue-500 p-8 rounded-3xl relative overflow-hidden transform md:-translate-y-4 shadow-2xl shadow-blue-900/50 hover:shadow-blue-600/40 hover:-translate-y-6 transition-all duration-300 reveal reveal-delay-2 group">
-                    <div class="absolute -top-6 -right-8 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-10 py-8 rotate-45 shadow-lg">Populer</div>
-                    <div class="flex-grow">
-                        <div class="text-6xl font-black italic text-blue-500 mb-4 group-hover:scale-105 origin-left transition-transform">V.2</div>
-                        <h3 class="text-2xl font-black uppercase text-white mb-3">Era Kustomisasi</h3>
-                        <p class="text-sm text-slate-300 leading-relaxed mb-4">
-                            Pembaruan masif pada User Interface dan fungsionalitas. Di versi ini, kami menyuntikkan kebebasan penuh kepada pengguna.
-                        </p>
-                        <ul class="text-sm text-slate-400 space-y-2 mb-4 font-medium">
-                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div> Pilihan Layout (Grid & Strip)</li>
-                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div> Filter Warna Real-time</li>
-                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div> Color Picker Interaktif</li>
-                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div> >15 Pilihan Font Nyentrik</li>
-                        </ul>
-                    </div>
-                    <a href="https://ahmadrosyidbaru-sys.github.io/Cyberpunk-Modern/" target="_blank" class="btn btn-primary w-full py-4 mt-8 rounded-xl text-center shadow-lg shadow-blue-600/30">
-                        Coba Versi 2
-                    </a>
-                </div>
-                
-                <div class="flex flex-col bg-slate-800/60 backdrop-blur-md border border-slate-700 p-8 rounded-3xl hover:border-amber-500 hover:-translate-y-2 transition-all duration-300 reveal reveal-delay-3 group">
-                    <div class="flex-grow">
-                        <div class="text-5xl font-black italic text-slate-600 mb-6 group-hover:text-amber-500 transition-colors">SPX</div>
-                        <h3 class="text-2xl font-black uppercase text-amber-400 mb-3">Edisi Tematik</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">
-                            Membuktikan seberapa fleksibel kode dasar Snap Studio. Edisi pertama dirilis khusus untuk menyambut Idul Adha dengan kustomisasi bingkai framing khusus, elemen stiker yang meriah, dan palet warna tematik yang langsung bisa dipakai. Cocok untuk acara spesifik dan seasonal!
-                        </p>
-                    </div>
-                    <a href="https://ahmadrosyidbaru-sys.github.io/SnapxIED/" target="_blank" class="btn bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-amber-500 hover:text-slate-900 w-full py-4 mt-8 rounded-xl text-center transition-all">
-                        Coba Edisi Spesial
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="kreator" class="py-24 px-6 bg-white border-b border-slate-200">
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 reveal">
-            <div class="w-56 h-56 md:w-72 md:h-72 rounded-[2.5rem] bg-slate-100 overflow-hidden border-8 border-white shadow-2xl shadow-slate-200 flex-shrink-0 relative group transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                
-                <img src="foto-profil.jpg" alt="Ahmad Rosyid" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                <div class="absolute -bottom-4 -left-4 bg-slate-900 text-white text-[10px] font-black uppercase px-4 py-2 rounded-xl -rotate-12 shadow-lg">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-20 lg:pt-24 lg:pb-32">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     
+                    <div class="text-center lg:text-left z-10 animate-fade-in">
+                        <div class="inline-block bg-blue-100 text-primary px-3 py-1 rounded-full text-xs font-bold mb-4 tracking-wide">
+                            <i class="fas fa-map-marker-alt mr-1"></i> #1 di Kota Serang
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-dark leading-tight mb-6 tracking-tight">
+                            Sepatu Bersih, <br>
+                            <span class="text-gradient">Gak Pake Ribet.</span>
+                        </h1>
+                        <p class="text-lg text-gray-500 mb-8 max-w-lg mx-auto lg:mx-0">
+                            Spesialis cuci sepatu dengan layanan <b>100% Home-Service</b>. Kami jemput kotor, kami antar bersih. Khusus area Kota Serang.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <button onclick="openOrderModal()" class="bg-primary hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-full transition shadow-lg shadow-blue-500/30 text-center flex justify-center items-center">
+                                <i class="fas fa-calendar-check mr-2"></i> Booking Jemputan
+                            </button>
+                            <a href="#services" class="bg-gray-100 hover:bg-gray-200 text-dark font-semibold py-3 px-8 rounded-full transition text-center">
+                                Lihat Layanan
+                            </a>
+                        </div>
+                        
+                        <div class="mt-8 flex items-center justify-center lg:justify-start space-x-4 text-sm text-gray-500 font-medium">
+                            <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Gratis Ongkir</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Garansi Bersih</div>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 flex justify-center mt-10 lg:mt-0">
+                        <div class="absolute w-64 h-64 sm:w-80 sm:h-80 bg-gradient-to-tr from-blue-100 to-white rounded-full -z-10 animate-pulse"></div>
+                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&q=80&w=800" alt="Sepatu Bersih" class="w-full max-w-md rounded-2xl shadow-2xl transform -rotate-6 animate-float border-4 border-white">
+                        
+                        <div class="absolute -bottom-6 -right-6 sm:bottom-0 sm:right-0 bg-dark text-white p-4 rounded-xl shadow-xl transform rotate-3 animate-slide-up" style="animation-delay: 0.3s;">
+                            <div class="text-xs text-gray-300 font-medium">Promo Terbatas!</div>
+                            <div class="text-xl font-bold text-primary">3 Psng <br> 100K</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="text-center md:text-left space-y-6">
-                <div>
-                    <p class="text-blue-600 font-black uppercase tracking-widest text-sm mb-2 flex items-center justify-center md:justify-start gap-2">
-                        <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                        Creator & Developer
-                    </p>
-                    <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tight text-slate-900">Ahmad Rosyid</h2>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 bg-light">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-black text-dark mb-4">Layanan Fokus, Kualitas Maksimal</h2>
+                    <p class="text-gray-500 max-w-2xl mx-auto">Kami tidak menerima repaint untuk menjaga kecepatan dan kualitas. Fokus kami hanya satu: membuat sepatu Anda bersih seperti baru.</p>
                 </div>
-                <p class="text-slate-600 leading-relaxed font-medium text-lg">
-                    Halo! Gw adalah tangan di balik kode <strong>Snap Studio</strong>. Proyek ini awalnya cuma sekadar keisengan buat ngulik integrasi Camera API dan modifikasi Canvas di browser. Tapi karena responsnya positif, eh malah keterusan ngembangin sampai Versi 2 yang jauh lebih interaktif.
-                </p>
-                <p class="text-slate-500 leading-relaxed">
-                    Gw percaya teknologi yang keren itu nggak harus ribet di-install. Snap Studio adalah bentuk dari kecintaan gw bikin interaksi web yang mulus, fungsional, dan pastinya gratis buat seru-seruan bareng temen tongkrongan.
-                </p>
-                <div class="pt-6 flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-                    <a href="https://instagram.com/ahmdrosyidd" target="_blank" class="inline-flex items-center justify-center gap-3 bg-slate-900 text-white px-8 py-4 rounded-xl font-bold uppercase text-sm hover:bg-blue-600 transition-colors shadow-lg shadow-slate-900/20 w-full sm:w-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                        Follow @ahmdrosyidd
-                    </a>
-                    <a href="https://github.com/ahmadrosyidbaruu-sys" target="_blank" class="inline-flex items-center justify-center gap-3 bg-slate-100 text-slate-700 px-8 py-4 rounded-xl font-bold uppercase text-sm hover:bg-slate-200 transition-colors w-full sm:w-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                        Lihat GitHub
-                    </a>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Service 1 -->
+                    <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 group">
+                        <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-primary text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-2">Fast Clean</h3>
+                        <p class="text-gray-500 mb-4 text-sm">Pembersihan area luar sepatu (Upper & Midsole). Cocok untuk perawatan rutin harian.</p>
+                        <div class="text-primary font-black text-lg mb-6">Rp 30.000 <span class="text-xs text-gray-400 font-normal">/pasang</span></div>
+                        <button onclick="openOrderModal('Fast Clean')" class="w-full bg-gray-100 hover:bg-primary hover:text-white text-dark font-semibold py-2 rounded-xl transition text-sm">Pilih Paket</button>
+                    </div>
+
+                    <!-- Service 2 (Highlight) -->
+                    <div class="bg-dark p-8 rounded-3xl shadow-xl transform md:-translate-y-4 relative border border-gray-800">
+                        <div class="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-3xl uppercase tracking-wider">
+                            Best Seller
+                        </div>
+                        <div class="w-14 h-14 bg-gray-800 rounded-2xl flex items-center justify-center text-white text-2xl mb-6">
+                            <i class="fas fa-sparkles"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Deep Clean</h3>
+                        <p class="text-gray-400 mb-4 text-sm">Pembersihan menyeluruh 360° (Upper, Midsole, Outsole, Insole). Menghilangkan noda membandel.</p>
+                        <div class="text-white font-black text-lg mb-6">Rp 50.000 <span class="text-xs text-gray-500 font-normal">/pasang</span></div>
+                        <button onclick="openOrderModal('Deep Clean')" class="w-full bg-primary hover:bg-blue-600 text-white font-semibold py-2 rounded-xl transition shadow-lg text-sm">Pilih Paket</button>
+                    </div>
+
+                    <!-- Service 3 (Promo) -->
+                    <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 group relative overflow-hidden">
+                        <div class="absolute -right-4 -top-4 w-24 h-24 bg-red-500 rounded-full opacity-10"></div>
+                        <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center text-red-500 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-2">Promo 3 Pasang</h3>
+                        <p class="text-gray-500 mb-4 text-sm">Paket hemat! Bisa campur Deep Clean / Fast Clean. Berlaku untuk 1 alamat penjemputan.</p>
+                        <div class="text-primary font-black text-lg mb-6">Rp 100.000 <span class="text-xs text-gray-400 font-normal line-through ml-1">Rp 150k</span></div>
+                        <button onclick="openOrderModal('Promo 3 Pasang')" class="w-full bg-gray-100 hover:bg-primary hover:text-white text-dark font-semibold py-2 rounded-xl transition text-sm">Pilih Paket</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location & Contact Section -->
+        <section id="contact" class="py-20 bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-black text-dark mb-4">Lokasi & Kontak Kami</h2>
+                    <p class="text-gray-500 max-w-2xl mx-auto">Kunjungi workshop kami atau hubungi admin via Instagram dan WhatsApp.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Maps -->
+                    <div class="bg-gray-50 p-4 rounded-3xl border border-gray-100 shadow-sm h-80">
+                        <iframe 
+                            src="https://maps.app.goo.gl/KNLnhcLRtF7JEQmE8" 
+                            class="w-full h-full rounded-2xl" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    <!-- Instagram Info -->
+                    <div class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-3xl border border-blue-100 shadow-sm flex flex-col justify-center items-center text-center">
+                        <div class="w-20 h-20 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 rounded-full flex items-center justify-center text-white text-4xl mb-4 shadow-lg">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <h3 class="text-2xl font-black text-dark mb-2">@cucispatu.id</h3>
+                        <p class="text-gray-500 mb-6 text-sm">Lihat hasil before-after cuci sepatu dan promo terbaru kami di Instagram!</p>
+                        <a href="https://www.instagram.com/cucispatu.id/?utm_source=ig_web_button_share_sheet" target="_blank" class="bg-dark hover:bg-black text-white font-bold py-3 px-8 rounded-full transition shadow-lg flex items-center">
+                            <i class="fab fa-instagram mr-2"></i> Follow Instagram
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pop-up Modal Form Pemesanan -->
+        <div id="orderModal" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300 p-4">
+            <div class="bg-white rounded-3xl w-full max-w-lg max-h-[95vh] flex flex-col shadow-2xl relative">
+                
+                <!-- Modal Header -->
+                <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-white rounded-t-3xl sticky top-0 z-10">
+                    <div>
+                        <h3 class="font-black text-xl text-dark">Formulir Order</h3>
+                        <p class="text-xs text-gray-500">Lengkapi data untuk penjemputan</p>
+                    </div>
+                    <button onclick="closeOrderModal()" class="w-8 h-8 flex justify-center items-center bg-gray-100 hover:bg-gray-200 rounded-full text-gray-600 transition">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Modal Body (Scrollable) -->
+                <div class="p-5 sm:p-6 overflow-y-auto relative">
+                    <!-- Loading Overlay -->
+                    <div id="formLoading" class="absolute inset-0 bg-white/90 z-20 flex flex-col items-center justify-center hidden backdrop-blur-sm rounded-b-3xl">
+                        <i class="fas fa-spinner fa-spin text-4xl text-primary mb-4"></i>
+                        <p class="font-bold text-gray-700">Memproses Pesanan...</p>
+                    </div>
+
+                    <form id="bookingForm" onsubmit="processOrder(event)">
+                        <div class="space-y-4">
+                            <!-- Paket & Qty -->
+                            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-2">
+                                <label class="block text-xs font-bold text-gray-700 uppercase mb-2">Pilih Paket Cuci</label>
+                                <select id="servicePackage" required class="w-full bg-white border border-gray-200 text-gray-800 rounded-lg px-3 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none transition font-medium mb-3" onchange="updatePrice()">
+                                    <option value="" disabled selected>Pilih Layanan...</option>
+                                    <option value="Fast Clean" data-price="30000">Fast Clean (Rp 30k / pasang)</option>
+                                    <option value="Deep Clean" data-price="50000">Deep Clean (Rp 50k / pasang)</option>
+                                    <option value="Promo 3 Pasang" data-price="100000">🔥 Promo 3 Pasang (Rp 100k)</option>
+                                </select>
+                                
+                                <div class="flex space-x-3 items-end">
+                                    <div class="flex-1">
+                                        <label class="block text-xs font-bold text-gray-700 uppercase mb-2">Jumlah Sepatu</label>
+                                        <input type="number" id="qty" min="1" value="1" required class="w-full bg-white border border-gray-200 text-gray-800 rounded-lg px-3 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition" onchange="updatePrice()">
+                                    </div>
+                                    <div class="flex-1 text-right">
+                                        <div class="text-[10px] text-gray-500 font-bold uppercase">Total Harga</div>
+                                        <div class="text-xl font-black text-primary" id="displayTotal">Rp 0</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Data Diri -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Nama Lengkap</label>
+                                    <input type="text" id="custName" required class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-lg px-3 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition" placeholder="Cth: Budi Santoso">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">No. WhatsApp</label>
+                                    <input type="tel" id="custPhone" required class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-lg px-3 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition" placeholder="Cth: 0812xxxx">
+                                </div>
+                            </div>
+
+                            <!-- Info Tanggal (Otomatis) -->
+                            <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-3 flex items-start space-x-3">
+                                <i class="fas fa-info-circle text-primary mt-0.5"></i>
+                                <div class="text-xs text-gray-600">
+                                    <span class="font-bold text-primary">Jadwal Jemput/Pengantaran:</span><br>
+                                    Penjemputan dilakukan hari ini. Sepatu akan diantar kembali <b>otomatis 3 hari</b> setelah dijemput.
+                                </div>
+                            </div>
+
+                            <!-- Alamat -->
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase mb-1 flex justify-between items-center">
+                                    <span>Alamat Penjemputan</span>
+                                    <button type="button" onclick="getLocation()" class="text-primary hover:text-blue-800 flex items-center transition bg-blue-50 px-2 py-1 rounded text-[10px]" id="btnLocation">
+                                        <i class="fas fa-location-crosshairs mr-1"></i> <span id="locText">Share Lokasi Maps</span>
+                                    </button>
+                                </label>
+                                <input type="hidden" id="mapsLink" value="">
+                                <textarea id="address" required rows="2" class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-lg px-3 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition resize-none text-sm" placeholder="Cth: Perum. Serang Indah Blok A/12. Pager hitam."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Modal Footer / Submit -->
+                        <div class="mt-6 pt-4 border-t border-gray-100">
+                            <button type="submit" class="w-full bg-dark hover:bg-black text-white font-bold py-3.5 rounded-xl transition shadow-lg flex justify-center items-center text-sm sm:text-base">
+                                <i class="fas fa-file-invoice mr-2"></i> Buat Pesanan & Struk
+                            </button>
+                            <p class="text-center text-[10px] text-gray-400 mt-2"><i class="fas fa-lock mr-1"></i> Data Anda langsung diteruskan ke WhatsApp Admin.</p>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
 
-    <footer class="py-10 text-center text-slate-400 font-bold text-xs uppercase tracking-widest bg-slate-50 border-t border-slate-200">
-        <p>&copy; 2026 Snap Studio by Ahmad Rosyid. jika ada kendala hubungi instagram @ahmdrosyidd.</p>
+        <!-- Modal Struk -->
+        <div id="receiptModal" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/95 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 overflow-y-auto py-10">
+            <div class="flex flex-col items-center max-w-md w-full px-4">
+                
+                <div class="w-full flex justify-between items-center mb-4 text-white">
+                    <h3 class="font-bold text-lg">Pesanan Berhasil! 🎉</h3>
+                    <button onclick="closeReceipt()" class="hover:text-gray-300 p-2 bg-white/10 rounded-full"><i class="fas fa-times"></i></button>
+                </div>
+
+                <div id="receiptCaptureArea" class="bg-white w-full rounded-lg shadow-2xl overflow-hidden relative font-mono text-sm invoice-bg p-6 border border-gray-200">
+                    <div class="text-center mb-6 border-b-2 border-dashed border-gray-300 pb-6">
+                        <div class="font-sans font-black italic text-2xl text-primary leading-none mb-1">
+                            CUCI<br><span class="text-dark">SPATU</span>
+                        </div>
+                        <p class="text-[10px] text-gray-500 font-sans mt-2">Jl. Contoh Serang No. 123, Banten</p>
+                        <p class="text-[10px] text-gray-500 font-sans">IG: @cucispatu.id | WA: 08123456789</p>
+                    </div>
+
+                    <div class="mb-4 text-gray-700 text-xs sm:text-sm">
+                        <div class="flex justify-between mb-1">
+                            <span>TANGGAL ORDER:</span>
+                            <span id="rDate" class="font-bold"></span>
+                        </div>
+                        <div class="flex justify-between mb-1">
+                            <span>NO. ORDER:</span>
+                            <span id="rOrder" class="font-bold"></span>
+                        </div>
+                        <div class="flex justify-between mb-1">
+                            <span>PELANGGAN:</span>
+                            <span id="rName" class="font-bold uppercase"></span>
+                        </div>
+                        <!-- Tambahan Tanggal Jemput di Struk -->
+                        <div class="flex justify-between mb-1 text-primary">
+                            <span>JEMPUT/ANTAR:</span>
+                            <span id="rPickup" class="font-black text-right max-w-[150px]"></span>
+                        </div>
+                    </div>
+
+                    <div class="border-y-2 border-dashed border-gray-300 py-4 mb-4 text-gray-800 text-xs sm:text-sm">
+                        <div class="flex justify-between font-bold mb-2">
+                            <span>LAYANAN (x<span id="rQty"></span>)</span>
+                            <span>SUBTOTAL</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span id="rService" class="truncate pr-2"></span>
+                            <span id="rSubtotal"></span>
+                        </div>
+                        <div class="flex justify-between text-[10px] text-gray-500 mt-1">
+                            <span>Biaya Jemput & Antar</span>
+                            <span>Gratis</span>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center text-lg sm:text-xl font-black text-dark mb-6">
+                        <span>TOTAL:</span>
+                        <span id="rTotal"></span>
+                    </div>
+
+                    <div class="bg-blue-50 text-primary text-center p-2 rounded text-[10px] font-bold font-sans border border-blue-100 mb-6 uppercase tracking-widest">
+                        Status: Menunggu Pick-up
+                    </div>
+
+                    <div class="text-center text-[10px] sm:text-xs text-gray-500">
+                        <p class="mb-1">Terima kasih telah mempercayakan</p>
+                        <p>kebersihan sepatu Anda kepada kami!</p>
+                        <div class="mt-4 opacity-50 flex justify-center">
+                            <svg width="150" height="30" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" width="2" height="30" fill="black"/>
+                                <rect x="4" y="0" width="4" height="30" fill="black"/>
+                                <rect x="10" y="0" width="2" height="30" fill="black"/>
+                                <rect x="14" y="0" width="6" height="30" fill="black"/>
+                                <rect x="22" y="0" width="2" height="30" fill="black"/>
+                                <rect x="28" y="0" width="8" height="30" fill="black"/>
+                                <rect x="40" y="0" width="2" height="30" fill="black"/>
+                                <rect x="44" y="0" width="4" height="30" fill="black"/>
+                                <rect x="52" y="0" width="6" height="30" fill="black"/>
+                                <rect x="62" y="0" width="2" height="30" fill="black"/>
+                                <rect x="68" y="0" width="4" height="30" fill="black"/>
+                                <rect x="76" y="0" width="2" height="30" fill="black"/>
+                                <rect x="80" y="0" width="6" height="30" fill="black"/>
+                                <rect x="90" y="0" width="2" height="30" fill="black"/>
+                                <rect x="94" y="0" width="8" height="30" fill="black"/>
+                                <rect x="106" y="0" width="4" height="30" fill="black"/>
+                                <rect x="114" y="0" width="2" height="30" fill="black"/>
+                                <rect x="120" y="0" width="6" height="30" fill="black"/>
+                                <rect x="130" y="0" width="4" height="30" fill="black"/>
+                                <rect x="136" y="0" width="2" height="30" fill="black"/>
+                                <rect x="142" y="0" width="8" height="30" fill="black"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full mt-6 space-y-3 font-sans">
+                    <button onclick="downloadReceipt()" class="w-full bg-white text-dark font-bold py-3.5 rounded-xl shadow transition hover:bg-gray-100 flex justify-center items-center text-sm">
+                        <i class="fas fa-download mr-2"></i> Unduh Struk (PNG)
+                    </button>
+                    <button onclick="sendToWhatsApp()" class="w-full bg-green-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-green-500/30 transition hover:bg-green-600 flex justify-center items-center text-sm">
+                        <i class="fab fa-whatsapp mr-2 text-xl"></i> Lanjut Chat WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-dark text-gray-400 py-12 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <div class="font-black italic leading-none text-2xl text-white opacity-90 mb-2">
+                        CUCI<br>SPATU
+                    </div>
+                    <p class="text-sm text-gray-500 max-w-xs">Layanan Cuci Sepatu Antar Jemput Nomor 1 di Kota Serang.</p>
+                </div>
+                <div class="flex space-x-6 text-xl">
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-800 text-sm text-center md:text-left flex flex-col md:flex-row justify-between">
+                <p>&copy; 2026 Cuci Spatu. All rights reserved.</p>
+                <p class="mt-2 md:mt-0">Dibuat khusus untuk area Serang, Banten.</p>
+            </div>
+        </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        const ADMIN_PHONE = "628211873266"; 
+        let orderData = {};
+
+        // Pop-up Promo Init
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const modal = document.getElementById('promoModal');
+                modal.classList.remove('hidden');
+                void modal.offsetWidth;
+                modal.classList.remove('opacity-0');
+            }, 1000);
+        });
+
+        function closePromo() {
+            const modal = document.getElementById('promoModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Navbar Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 10) {
+                nav.classList.add('shadow-sm');
+            } else {
+                nav.classList.remove('shadow-sm');
+            }
+        });
+
+        // Form Modal Logic
+        function openOrderModal(selectedService = '') {
+            // Auto select service if passed
+            if(selectedService) {
+                const select = document.getElementById('servicePackage');
+                select.value = selectedService;
+                updatePrice();
+            }
+
+            const modal = document.getElementById('orderModal');
+            modal.classList.remove('hidden');
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+        }
+
+        function closeOrderModal() {
+            const modal = document.getElementById('orderModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function updatePrice() {
+            const select = document.getElementById('servicePackage');
+            const qtyInput = document.getElementById('qty');
+            let qty = parseInt(qtyInput.value) || 1;
+            
+            if (select.value === 'Promo 3 Pasang') {
+                qtyInput.value = 3; 
+                qtyInput.setAttribute('disabled', 'true');
+                qty = 3;
+            } else {
+                qtyInput.removeAttribute('disabled');
+            }
+
+            const priceStr = select.options[select.selectedIndex]?.dataset?.price;
+            if(priceStr) {
+                let basePrice = parseInt(priceStr);
+                let total = select.value !== 'Promo 3 Pasang' ? basePrice * qty : basePrice;
+                document.getElementById('displayTotal').innerText = formatRupiah(total);
+            } else {
+                document.getElementById('displayTotal').innerText = 'Rp 0';
+            }
+        }
+
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+        }
+
+        function getLocation() {
+            const btnText = document.getElementById('locText');
+            const btnIcon = document.querySelector('#btnLocation i');
+            
+            if (navigator.geolocation) {
+                btnText.innerText = "Mencari Lokasi...";
+                btnIcon.className = "fas fa-spinner fa-spin mr-1";
+                
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        const mapLink = `https://maps.google.com/?q=${lat},${lon}`;
+                        
+                        document.getElementById('mapsLink').value = mapLink;
+                        btnText.innerText = "Lokasi Tersimpan!";
+                        btnText.classList.add('text-green-600');
+                        btnIcon.className = "fas fa-check-circle mr-1 text-green-600";
+                    },
+                    (error) => {
+                        alert("Gagal mengakses lokasi. Ketik alamat manual.");
+                        btnText.innerText = "Gagal (Isi Manual)";
+                        btnIcon.className = "fas fa-exclamation-triangle mr-1";
+                    },
+                    { enableHighAccuracy: true, timeout: 5000 }
+                );
+            } else {
+                alert("Browser Anda tidak mendukung geolokasi.");
+            }
+        }
+
+        function processOrder(e) {
+            e.preventDefault();
+            document.getElementById('formLoading').classList.remove('hidden');
+
+            const select = document.getElementById('servicePackage');
+            let qty = document.getElementById('qty').value;
+            const priceStr = select.options[select.selectedIndex].dataset.price;
+            let total = parseInt(priceStr);
+            if(select.value !== 'Promo 3 Pasang') total = total * parseInt(qty);
+            else qty = 3; 
+
+            const now = new Date();
+            const orderId = 'CS' + now.getFullYear().toString().substr(-2) + 
+                            String(now.getMonth()+1).padStart(2,'0') + 
+                            String(now.getDate()).padStart(2,'0') + 
+                            Math.floor(1000 + Math.random() * 9000);
+
+            // Format tanggal jemput/antar otomatis (Hari ini s/d Hari ini + 3)
+            const pickupDate = new Date(now);
+            const deliveryDate = new Date(now);
+            deliveryDate.setDate(now.getDate() + 3);
+            
+            const options = { weekday: 'short', day: 'numeric', month: 'short' };
+            const strPickup = pickupDate.toLocaleDateString('id-ID', options);
+            const strDelivery = deliveryDate.toLocaleDateString('id-ID', options);
+            const formattedPickup = `${strPickup} - ${strDelivery}`;
+
+            orderData = {
+                id: orderId,
+                date: now.toLocaleDateString('id-ID'),
+                name: document.getElementById('custName').value,
+                phone: document.getElementById('custPhone').value,
+                service: select.value,
+                qty: qty,
+                totalFormat: formatRupiah(total),
+                address: document.getElementById('address').value,
+                maps: document.getElementById('mapsLink').value,
+                pickupDate: formattedPickup
+            };
+
+            // Inject to Receipt
+            document.getElementById('rDate').innerText = orderData.date;
+            document.getElementById('rOrder').innerText = orderData.id;
+            document.getElementById('rName').innerText = orderData.name;
+            document.getElementById('rPickup').innerText = orderData.pickupDate; // Tampilkan Tanggal Jemput
+            document.getElementById('rQty').innerText = orderData.qty;
+            document.getElementById('rService').innerText = orderData.service;
+            document.getElementById('rSubtotal').innerText = orderData.totalFormat;
+            document.getElementById('rTotal').innerText = orderData.totalFormat;
+
+            setTimeout(() => {
+                document.getElementById('formLoading').classList.add('hidden');
+                closeOrderModal();
+                
+                const rModal = document.getElementById('receiptModal');
+                rModal.classList.remove('hidden');
+                void rModal.offsetWidth;
+                rModal.classList.remove('opacity-0');
+            }, 1000);
+        }
+
+        function downloadReceipt() {
+            const captureArea = document.getElementById('receiptCaptureArea');
+            html2canvas(captureArea, {
+                scale: 2, 
+                backgroundColor: "#ffffff",
+                useCORS: true
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `Struk_CuciSpatu_${orderData.id}.png`;
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            });
+        }
+
+        function sendToWhatsApp() {
+            let message = `*HALO ADMIN CUCI SPATU!* 👟\nSaya ingin request penjemputan sepatu.\n\n`;
+            message += `*No. Order:* ${orderData.id}\n`;
+            message += `*Jemput/Antar:* ${orderData.pickupDate}\n`;
+            message += `*Nama:* ${orderData.name}\n`;
+            message += `*No HP:* ${orderData.phone}\n`;
+            message += `*Paket:* ${orderData.service} (${orderData.qty} Pasang)\n`;
+            message += `*Total:* ${orderData.totalFormat}\n\n`;
+            message += `*Alamat Jemput:*\n${orderData.address}\n`;
+            
+            if(orderData.maps) message += `\n*Link Maps:* ${orderData.maps}\n`;
+            message += `\n_Struk pesanan sudah saya simpan. Mohon konfirmasi jadwal pick-up ya!_`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const waURL = `https://wa.me/${ADMIN_PHONE}?text=${encodedMessage}`;
+            window.open(waURL, '_blank');
+        }
+
+        function closeReceipt() {
+            const modal = document.getElementById('receiptModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
 </body>
 </html>
