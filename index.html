@@ -1,704 +1,712 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CUCI SPATU | Layanan Cuci Sepatu Antar Jemput Serang</title>
-    
-    <!-- Fonts: Inter untuk kesan bersih dan modern -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CUCI SPATU - Serang Banten</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Library untuk generate Struk menjadi Gambar -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- HTML2Canvas for PNG Download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-    <!-- Konfigurasi Tema Tailwind -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#0455BF', // Warna utama biru profesional
-                        dark: '#111827',
-                        light: '#F9FAFB',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'float': 'float 3s ease-in-out infinite',
-                        'slide-up': 'slideUp 0.5s ease-out',
-                        'fade-in': 'fadeIn 0.5s ease-out',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-15px)' },
-                        },
-                        slideUp: {
-                            '0%': { transform: 'translateY(20px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        },
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F9FAFB;
+            background-color: #e2e8f0; 
         }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #0455BF; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #033c87; }
-
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-style: italic;
         }
-
-        /* Gradient Text */
-        .text-gradient {
-            background: linear-gradient(135deg, #0455BF 0%, #1e3a8a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-
-        /* Invoice Pattern */
-        .invoice-bg {
-            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
-            background-size: 20px 20px;
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .modal-enter {
+            animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
         }
     </style>
 </head>
-<body class="text-gray-800 antialiased selection:bg-primary selection:text-white">
+<body class="flex items-center justify-center min-h-[100dvh] relative">
 
-    <!-- Pop-up Promo Awal -->
-    <div id="promoModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300 p-4">
-        <div class="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 relative">
-            <button onclick="closePromo()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 bg-white/50 backdrop-blur rounded-full p-2 transition z-10">
-                <i class="fas fa-times"></i>
+    <!-- Toast Notification Overlay -->
+    <div id="toastMessage" class="fixed top-5 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3.5 rounded-2xl shadow-2xl z-[100] transform -translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 font-medium text-sm w-[90%] max-w-sm pointer-events-none border border-slate-700">
+        <i data-lucide="info" class="w-5 h-5 text-blue-400 shrink-0"></i>
+        <span id="toastText" class="leading-snug">Notifikasi</span>
+    </div>
+
+    <!-- Mobile Container -->
+    <div class="w-full max-w-md bg-slate-50 min-h-[100dvh] md:min-h-screen relative shadow-2xl overflow-hidden flex flex-col mx-auto">
+        
+        <!-- Header / Hero Section -->
+        <div class="bg-slate-900 text-white rounded-b-[2.5rem] p-10 text-center shadow-lg relative z-10">
+            <h1 class="logo-text text-5xl leading-[1.1] tracking-tight text-blue-500">CUCI<br><span class="text-white">SPATU</span></h1>
+            <p class="mt-4 text-sm font-light text-slate-300 px-4">Solusi Cuci Sepatu Homeservice Serang Banten</p>
+        </div>
+
+        <!-- Main Content Section -->
+        <div class="flex-1 flex flex-col items-center justify-center p-8 space-y-10">
+            <!-- Illustration / Icon -->
+            <div class="relative w-40 h-40 bg-white rounded-full flex items-center justify-center shadow-xl border border-slate-100 text-blue-600">
+                <i data-lucide="sparkles" class="w-16 h-16"></i>
+                <div class="absolute -bottom-3 bg-blue-600 text-white text-xs font-bold px-5 py-2 rounded-full shadow-md uppercase tracking-wider">
+                    Home Service
+                </div>
+            </div>
+
+            <div class="text-center space-y-3 px-4">
+                <h2 class="text-2xl font-bold text-slate-800 tracking-tight">Sepatu Kotor?</h2>
+                <p class="text-sm text-slate-500 leading-relaxed font-medium">Biar tim profesional kami yang menjemput dan merawat sepatu Anda. Cukup tunggu di rumah.</p>
+            </div>
+
+            <!-- Order Button -->
+            <button onclick="openModal('formModal')" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-base hover:bg-blue-700 active:scale-[0.98] transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">
+                <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                Buat Order Sekarang
             </button>
-            <div class="bg-primary p-6 text-center text-white">
-                <h3 class="text-2xl font-black italic mb-1 uppercase tracking-wider">Promo Spesial!</h3>
-                <p class="text-blue-100 text-sm">Terbatas untuk pelanggan Kota Serang</p>
-            </div>
-            <div class="p-6 text-center">
-                <div class="text-5xl font-black text-primary mb-2">3 Pasang</div>
-                <div class="text-3xl font-bold text-gray-800 mb-4">Hanya Rp 100K</div>
-                <p class="text-gray-500 mb-6 text-sm">Deep Clean / Fast Clean. Gratis antar jemput se-Kota Serang tanpa minimal order!</p>
-                <button onclick="closePromo(); openOrderModal();" class="w-full bg-primary hover:bg-blue-800 text-white font-bold py-3 px-4 rounded-full transition shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center">
-                    Klaim Promo & Order <i class="fas fa-arrow-right ml-2"></i>
-                </button>
-            </div>
         </div>
     </div>
 
-    <!-- Header Navbar -->
-    <header class="fixed top-0 w-full z-40 glass-effect transition-all duration-300" id="navbar">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="font-black italic leading-none text-xl sm:text-2xl text-primary tracking-tighter">
-                        CUCI<br><span class="text-dark">SPATU</span>
-                    </div>
-                </div>
-                <!-- Nav Links (Desktop) -->
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#services" class="text-gray-600 hover:text-primary font-medium transition">Layanan</a>
-                    <a href="#contact" class="text-gray-600 hover:text-primary font-medium transition">Lokasi & Kontak</a>
-                </nav>
-                <!-- CTA Header -->
-                <div>
-                    <button onclick="openOrderModal()" class="bg-dark hover:bg-black text-white px-5 py-2.5 rounded-full font-bold text-sm transition shadow-md flex items-center">
-                        <i class="fas fa-motorcycle mr-2"></i> Order <span class="hidden sm:inline ml-1">Sekarang</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main class="pt-16">
-        <!-- Hero Section -->
-        <section class="relative bg-white overflow-hidden">
-            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-blue-50 opacity-50 blur-3xl"></div>
+    <!-- 1. FORM ORDER MODAL -->
+    <div id="formModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 hidden flex-col justify-end h-[100dvh]">
+        <div class="bg-white w-full max-w-md mx-auto h-[90dvh] md:h-[92vh] rounded-t-[2rem] shadow-2xl flex flex-col modal-enter relative">
             
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-20 lg:pt-24 lg:pb-32">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    
-                    <div class="text-center lg:text-left z-10 animate-fade-in">
-                        <div class="inline-block bg-blue-100 text-primary px-3 py-1 rounded-full text-xs font-bold mb-4 tracking-wide">
-                            <i class="fas fa-map-marker-alt mr-1"></i> #1 di Kota Serang
-                        </div>
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-dark leading-tight mb-6 tracking-tight">
-                            Sepatu Bersih, <br>
-                            <span class="text-gradient">Gak Pake Ribet.</span>
-                        </h1>
-                        <p class="text-lg text-gray-500 mb-8 max-w-lg mx-auto lg:mx-0">
-                            Spesialis cuci sepatu dengan layanan <b>100% Home-Service</b>. Kami jemput kotor, kami antar bersih. Khusus area Kota Serang.
-                        </p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <button onclick="openOrderModal()" class="bg-primary hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-full transition shadow-lg shadow-blue-500/30 text-center flex justify-center items-center">
-                                <i class="fas fa-calendar-check mr-2"></i> Booking Jemputan
-                            </button>
-                            <a href="#services" class="bg-gray-100 hover:bg-gray-200 text-dark font-semibold py-3 px-8 rounded-full transition text-center">
-                                Lihat Layanan
-                            </a>
-                        </div>
-                        
-                        <div class="mt-8 flex items-center justify-center lg:justify-start space-x-4 text-sm text-gray-500 font-medium">
-                            <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Gratis Ongkir</div>
-                            <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Garansi Bersih</div>
-                        </div>
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center p-6 border-b border-slate-100 bg-white rounded-t-[2rem] z-10">
+                <div class="flex items-center gap-3">
+                    <div class="bg-blue-50 p-2.5 rounded-xl text-blue-600">
+                        <i data-lucide="file-text" class="w-5 h-5"></i>
                     </div>
-
-                    <div class="relative z-10 flex justify-center mt-10 lg:mt-0">
-                        <div class="absolute w-64 h-64 sm:w-80 sm:h-80 bg-gradient-to-tr from-blue-100 to-white rounded-full -z-10 animate-pulse"></div>
-                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&q=80&w=800" alt="Sepatu Bersih" class="w-full max-w-md rounded-2xl shadow-2xl transform -rotate-6 animate-float border-4 border-white">
-                        
-                        <div class="absolute -bottom-6 -right-6 sm:bottom-0 sm:right-0 bg-dark text-white p-4 rounded-xl shadow-xl transform rotate-3 animate-slide-up" style="animation-delay: 0.3s;">
-                            <div class="text-xs text-gray-300 font-medium">Promo Terbatas!</div>
-                            <div class="text-xl font-bold text-primary">3 Psng <br> 100K</div>
-                        </div>
-                    </div>
+                    <h3 class="font-bold text-lg text-slate-800">Detail Penjemputan</h3>
                 </div>
+                <button onclick="closeModal('formModal')" class="text-slate-400 hover:text-slate-700 bg-slate-50 p-2 rounded-full transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
             </div>
-        </section>
 
-        <!-- Services Section -->
-        <section id="services" class="py-20 bg-light">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-black text-dark mb-4">Layanan Fokus, Kualitas Maksimal</h2>
-                    <p class="text-gray-500 max-w-2xl mx-auto">Kami tidak menerima repaint untuk menjaga kecepatan dan kualitas. Fokus kami hanya satu: membuat sepatu Anda bersih seperti baru.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Service 1 -->
-                    <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 group">
-                        <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-primary text-2xl mb-6 group-hover:scale-110 transition-transform">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-dark mb-2">Fast Clean</h3>
-                        <p class="text-gray-500 mb-4 text-sm">Pembersihan area luar sepatu (Upper & Midsole). Cocok untuk perawatan rutin harian.</p>
-                        <div class="text-primary font-black text-lg mb-6">Rp 30.000 <span class="text-xs text-gray-400 font-normal">/pasang</span></div>
-                        <button onclick="openOrderModal('Fast Clean')" class="w-full bg-gray-100 hover:bg-primary hover:text-white text-dark font-semibold py-2 rounded-xl transition text-sm">Pilih Paket</button>
-                    </div>
-
-                    <!-- Service 2 (Highlight) -->
-                    <div class="bg-dark p-8 rounded-3xl shadow-xl transform md:-translate-y-4 relative border border-gray-800">
-                        <div class="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-3xl uppercase tracking-wider">
-                            Best Seller
-                        </div>
-                        <div class="w-14 h-14 bg-gray-800 rounded-2xl flex items-center justify-center text-white text-2xl mb-6">
-                            <i class="fas fa-sparkles"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2">Deep Clean</h3>
-                        <p class="text-gray-400 mb-4 text-sm">Pembersihan menyeluruh 360° (Upper, Midsole, Outsole, Insole). Menghilangkan noda membandel.</p>
-                        <div class="text-white font-black text-lg mb-6">Rp 50.000 <span class="text-xs text-gray-500 font-normal">/pasang</span></div>
-                        <button onclick="openOrderModal('Deep Clean')" class="w-full bg-primary hover:bg-blue-600 text-white font-semibold py-2 rounded-xl transition shadow-lg text-sm">Pilih Paket</button>
-                    </div>
-
-                    <!-- Service 3 (Promo) -->
-                    <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 group relative overflow-hidden">
-                        <div class="absolute -right-4 -top-4 w-24 h-24 bg-red-500 rounded-full opacity-10"></div>
-                        <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center text-red-500 text-2xl mb-6 group-hover:scale-110 transition-transform">
-                            <i class="fas fa-tags"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-dark mb-2">Promo 3 Pasang</h3>
-                        <p class="text-gray-500 mb-4 text-sm">Paket hemat! Bisa campur Deep Clean / Fast Clean. Berlaku untuk 1 alamat penjemputan.</p>
-                        <div class="text-primary font-black text-lg mb-6">Rp 100.000 <span class="text-xs text-gray-400 font-normal line-through ml-1">Rp 150k</span></div>
-                        <button onclick="openOrderModal('Promo 3 Pasang')" class="w-full bg-gray-100 hover:bg-primary hover:text-white text-dark font-semibold py-2 rounded-xl transition text-sm">Pilih Paket</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Location & Contact Section -->
-        <section id="contact" class="py-20 bg-white">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-black text-dark mb-4">Lokasi & Kontak Kami</h2>
-                    <p class="text-gray-500 max-w-2xl mx-auto">Kunjungi workshop kami atau hubungi admin via Instagram dan WhatsApp.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Maps -->
-                    <div class="bg-gray-50 p-4 rounded-3xl border border-gray-100 shadow-sm h-80">
-                        <iframe 
-                            src="https://maps.app.goo.gl/KNLnhcLRtF7JEQmE8" 
-                            class="w-full h-full rounded-2xl" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                    <!-- Instagram Info -->
-                    <div class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-3xl border border-blue-100 shadow-sm flex flex-col justify-center items-center text-center">
-                        <div class="w-20 h-20 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 rounded-full flex items-center justify-center text-white text-4xl mb-4 shadow-lg">
-                            <i class="fab fa-instagram"></i>
-                        </div>
-                        <h3 class="text-2xl font-black text-dark mb-2">@cucispatu.id</h3>
-                        <p class="text-gray-500 mb-6 text-sm">Lihat hasil before-after cuci sepatu dan promo terbaru kami di Instagram!</p>
-                        <a href="https://www.instagram.com/cucispatu.id/?utm_source=ig_web_button_share_sheet" target="_blank" class="bg-dark hover:bg-black text-white font-bold py-3 px-8 rounded-full transition shadow-lg flex items-center">
-                            <i class="fab fa-instagram mr-2"></i> Follow Instagram
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pop-up Modal Form Pemesanan -->
-        <div id="orderModal" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300 p-4">
-            <div class="bg-white rounded-3xl w-full max-w-lg max-h-[95vh] flex flex-col shadow-2xl relative">
-                
-                <!-- Modal Header -->
-                <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-white rounded-t-3xl sticky top-0 z-10">
-                    <div>
-                        <h3 class="font-black text-xl text-dark">Formulir Order</h3>
-                        <p class="text-xs text-gray-500">Lengkapi data untuk penjemputan</p>
-                    </div>
-                    <button onclick="closeOrderModal()" class="w-8 h-8 flex justify-center items-center bg-gray-100 hover:bg-gray-200 rounded-full text-gray-600 transition">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-
-                <!-- Modal Body (Scrollable) -->
-                <div class="p-5 sm:p-6 overflow-y-auto relative">
-                    <!-- Loading Overlay -->
-                    <div id="formLoading" class="absolute inset-0 bg-white/90 z-20 flex flex-col items-center justify-center hidden backdrop-blur-sm rounded-b-3xl">
-                        <i class="fas fa-spinner fa-spin text-4xl text-primary mb-4"></i>
-                        <p class="font-bold text-gray-700">Memproses Pesanan...</p>
-                    </div>
-
-                    <form id="bookingForm" onsubmit="processOrder(event)">
+            <!-- Form Content -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-5 no-scrollbar pb-10">
+                <form id="orderForm" onsubmit="handleFormSubmit(event)">
+                    <div class="space-y-6">
+                        <!-- Data Diri -->
                         <div class="space-y-4">
-                            <!-- Paket & Qty -->
-                            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-2">
-                                <label class="block text-xs font-bold text-gray-700 uppercase mb-2">Pilih Paket Cuci</label>
-                                <select id="servicePackage" required class="w-full bg-white border border-gray-200 text-gray-800 rounded-lg px-3 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none transition font-medium mb-3" onchange="updatePrice()">
-                                    <option value="" disabled selected>Pilih Layanan...</option>
-                                    <option value="Fast Clean" data-price="30000">Fast Clean (Rp 30k / pasang)</option>
-                                    <option value="Deep Clean" data-price="50000">Deep Clean (Rp 50k / pasang)</option>
-                                    <option value="Promo 3 Pasang" data-price="100000">🔥 Promo 3 Pasang (Rp 100k)</option>
-                                </select>
-                                
-                                <div class="flex space-x-3 items-end">
-                                    <div class="flex-1">
-                                        <label class="block text-xs font-bold text-gray-700 uppercase mb-2">Jumlah Sepatu</label>
-                                        <input type="number" id="qty" min="1" value="1" required class="w-full bg-white border border-gray-200 text-gray-800 rounded-lg px-3 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition" onchange="updatePrice()">
-                                    </div>
-                                    <div class="flex-1 text-right">
-                                        <div class="text-[10px] text-gray-500 font-bold uppercase">Total Harga</div>
-                                        <div class="text-xl font-black text-primary" id="displayTotal">Rp 0</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Data Diri -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Nama Lengkap</label>
-                                    <input type="text" id="custName" required class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-lg px-3 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition" placeholder="Cth: Budi Santoso">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">No. WhatsApp</label>
-                                    <input type="tel" id="custPhone" required class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-lg px-3 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition" placeholder="Cth: 0812xxxx">
-                                </div>
-                            </div>
-
-                            <!-- Info Tanggal (Otomatis) -->
-                            <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-3 flex items-start space-x-3">
-                                <i class="fas fa-info-circle text-primary mt-0.5"></i>
-                                <div class="text-xs text-gray-600">
-                                    <span class="font-bold text-primary">Jadwal Jemput/Pengantaran:</span><br>
-                                    Penjemputan dilakukan hari ini. Sepatu akan diantar kembali <b>otomatis 3 hari</b> setelah dijemput.
-                                </div>
-                            </div>
-
-                            <!-- Alamat -->
+                            <h4 class="text-[11px] font-bold text-blue-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                <span class="w-4 h-[2px] bg-blue-600 rounded-full"></span> Informasi Pelanggan
+                            </h4>
+                            
                             <div>
-                                <label class="block text-xs font-bold text-gray-700 uppercase mb-1 flex justify-between items-center">
-                                    <span>Alamat Penjemputan</span>
-                                    <button type="button" onclick="getLocation()" class="text-primary hover:text-blue-800 flex items-center transition bg-blue-50 px-2 py-1 rounded text-[10px]" id="btnLocation">
-                                        <i class="fas fa-location-crosshairs mr-1"></i> <span id="locText">Share Lokasi Maps</span>
-                                    </button>
+                                <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
+                                    <i data-lucide="user" class="w-4 h-4 text-slate-400"></i> Nama Lengkap
                                 </label>
-                                <input type="hidden" id="mapsLink" value="">
-                                <textarea id="address" required rows="2" class="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-lg px-3 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition resize-none text-sm" placeholder="Cth: Perum. Serang Indah Blok A/12. Pager hitam."></textarea>
+                                <input type="text" id="nama" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:font-normal" placeholder="Masukkan nama Anda">
+                            </div>
+
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
+                                    <i data-lucide="phone" class="w-4 h-4 text-slate-400"></i> No. HP/WA Aktif
+                                </label>
+                                <input type="tel" id="nohp" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:font-normal" placeholder="Contoh: 08123456789">
+                            </div>
+
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
+                                    <i data-lucide="map-pin" class="w-4 h-4 text-slate-400"></i> Alamat Lengkap
+                                </label>
+                                <textarea id="alamat" required rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:font-normal" placeholder="Sertakan patokan rumah/gedung"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
+                                    <i data-lucide="navigation" class="w-4 h-4 text-slate-400"></i> Share Location
+                                </label>
+                                <div class="flex gap-2">
+                                    <input type="text" id="lokasi" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:font-normal" placeholder="Link Gmaps / Ketik manual" readonly>
+                                    <button type="button" onclick="getShareLoc()" class="bg-blue-100 text-blue-700 px-5 rounded-xl text-sm font-bold hover:bg-blue-200 transition-colors flex items-center justify-center whitespace-nowrap gap-1.5 shadow-sm">
+                                        <i data-lucide="crosshair" class="w-4 h-4"></i> GPS
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Modal Footer / Submit -->
-                        <div class="mt-6 pt-4 border-t border-gray-100">
-                            <button type="submit" class="w-full bg-dark hover:bg-black text-white font-bold py-3.5 rounded-xl transition shadow-lg flex justify-center items-center text-sm sm:text-base">
-                                <i class="fas fa-file-invoice mr-2"></i> Buat Pesanan & Struk
-                            </button>
-                            <p class="text-center text-[10px] text-gray-400 mt-2"><i class="fas fa-lock mr-1"></i> Data Anda langsung diteruskan ke WhatsApp Admin.</p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+                        <hr class="border-slate-100">
 
-        <!-- Modal Struk -->
-        <div id="receiptModal" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/95 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 overflow-y-auto py-10">
-            <div class="flex flex-col items-center max-w-md w-full px-4">
+                        <!-- Detail Sepatu & Layanan -->
+                        <div class="space-y-4">
+                            <h4 class="text-[11px] font-bold text-blue-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                <span class="w-4 h-[2px] bg-blue-600 rounded-full"></span> Detail & Layanan
+                            </h4>
+                            
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
+                                    <i data-lucide="tag" class="w-4 h-4 text-slate-400"></i> Merk / Tipe Sepatu
+                                </label>
+                                <input type="text" id="merk" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:font-normal" placeholder="Contoh: Nike Air Force 1, Converse 70s">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
+                                        <i data-lucide="layers" class="w-4 h-4 text-slate-400"></i> Bahan
+                                    </label>
+                                    <select id="bahan" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-700">
+                                        <option value="" disabled selected>Pilih...</option>
+                                        <option value="Canvas">Canvas</option>
+                                        <option value="Suede">Suede</option>
+                                        <option value="Leather (Kulit)">Leather (Kulit)</option>
+                                        <option value="Mesh / Knit">Mesh / Knit</option>
+                                        <option value="Nubuck">Nubuck</option>
+                                        <option value="Campuran">Campuran / Lainnya</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
+                                        <i data-lucide="box" class="w-4 h-4 text-slate-400"></i> Jml (Psg)
+                                    </label>
+                                    <input type="number" id="jumlah" required min="1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:font-normal" placeholder="0">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
+                                    <i data-lucide="sparkles" class="w-4 h-4 text-slate-400"></i> Pilihan Layanan
+                                </label>
+                                <select id="layanan" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-700">
+                                    <option value="" disabled selected>Pilih paket layanan...</option>
+                                    <option value="Promo 3 Pasang Deep Clean" data-price="100000" data-is-package="true">Promo: 3 Pasang Deep Clean - Rp 100.000</option>
+                                    <option value="Deep Clean (35k)" data-price="35000">Deep Clean (Base) - Rp 35.000</option>
+                                    <option value="Deep Clean (40k)" data-price="40000">Deep Clean (Medium) - Rp 40.000</option>
+                                    <option value="Deep Clean (60k)" data-price="60000">Deep Clean (Hard) - Rp 60.000</option>
+                                    <option value="Whitening (Light Canvas)" data-price="50000">Whitening (Light Canvas) - Rp 50.000</option>
+                                    <option value="Whitening (Mesh/Knit)" data-price="60000">Whitening (Mesh/Knit) - Rp 60.000</option>
+                                    <option value="Leather Care" data-price="50000">Leather Care - Rp 50.000</option>
+                                    <option value="Suede Care (70k)" data-price="70000">Suede Care (Base) - Rp 70.000</option>
+                                    <option value="Suede Care (80k)" data-price="80000">Suede Care (Hard) - Rp 80.000</option>
+                                    <option value="Pretty Pair" data-price="30000">Pretty Pair (Flat/Heels) - Rp 30.000</option>
+                                    <option value="Kids Shoes" data-price="30000">Kids Shoes (Size 19-35) - Rp 30.000</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
+                                    <i data-lucide="clock" class="w-4 h-4 text-slate-400"></i> Waktu Pengerjaan
+                                </label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <label class="relative">
+                                        <input type="radio" name="waktu" value="Reguler (3 Hari)" class="peer sr-only" checked>
+                                        <div class="p-4 rounded-xl border border-slate-200 cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-slate-50 transition text-center shadow-sm">
+                                            <div class="font-bold text-slate-800 text-sm">Reguler</div>
+                                            <div class="text-xs text-slate-500 font-medium mt-1">3 Hari</div>
+                                        </div>
+                                    </label>
+                                    <label class="relative">
+                                        <input type="radio" name="waktu" value="Express 1 Hari (+ Rp 20.000/psg)" class="peer sr-only">
+                                        <div class="p-4 rounded-xl border border-slate-200 cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-slate-50 transition text-center shadow-sm">
+                                            <div class="font-bold text-slate-800 text-sm">Express</div>
+                                            <div class="text-[11px] text-blue-600 font-bold mt-1 bg-blue-100 rounded inline-block px-1.5 py-0.5">+20k/psg</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
+                                    <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i> Jadwal Pickup
+                                </label>
+                                <input type="datetime-local" id="jadwal" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-700">
+                            </div>
+
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
+                                    <i data-lucide="credit-card" class="w-4 h-4 text-slate-400"></i> Metode Pembayaran
+                                </label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <label class="relative">
+                                        <input type="radio" name="pembayaran" value="COD (Cash On Delivery)" class="peer sr-only" checked>
+                                        <div class="p-4 rounded-xl border border-slate-200 cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-slate-50 transition text-center shadow-sm">
+                                            <div class="font-bold text-slate-800 text-sm">COD</div>
+                                            <div class="text-xs text-slate-500 font-medium mt-1">Tunai ke Kurir</div>
+                                        </div>
+                                    </label>
+                                    <label class="relative">
+                                        <input type="radio" name="pembayaran" value="QRIS / Transfer" class="peer sr-only">
+                                        <div class="p-4 rounded-xl border border-slate-200 cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-slate-50 transition text-center shadow-sm">
+                                            <div class="font-bold text-slate-800 text-sm">QRIS</div>
+                                            <div class="text-[11px] text-blue-600 font-bold mt-1 bg-blue-100 rounded inline-block px-1.5 py-0.5">M-Banking/Dana</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
+                                    <i data-lucide="message-square" class="w-4 h-4 text-slate-400"></i> Catatan (Opsional)
+                                </label>
+                                <textarea id="catatan" rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:font-normal" placeholder="Misal: sol lem lepas, noda tinta, dll"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sticky Footer Button -->
+                <div class="p-5 border-t border-slate-100 bg-white rounded-t-3xl z-10">
+                    <button type="submit" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold text-base hover:bg-slate-800 shadow-lg shadow-slate-900/20 active:scale-[0.98] transition-all">
+                        Proses Pesanan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. LOADING MODAL -->
+    <div id="loadingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden items-center justify-center">
+        <div class="flex flex-col items-center">
+            <div class="spinner mb-5"></div>
+            <p id="loadingMessage" class="text-white font-medium tracking-wide">Memproses Pesanan...</p>
+        </div>
+    </div>
+
+    <!-- 3. STRUK (RECEIPT) MODAL - Full Responsive No Cut-off -->
+    <div id="receiptModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex-col h-[100dvh]">
+        
+        <!-- Wrapper scrollable khusus konten struk -->
+        <div class="flex-1 overflow-y-auto p-4 w-full flex flex-col items-center no-scrollbar pt-8 pb-8">
+            <div class="w-full max-w-sm mx-auto modal-enter mb-8 flex justify-center">
                 
-                <div class="w-full flex justify-between items-center mb-4 text-white">
-                    <h3 class="font-bold text-lg">Pesanan Berhasil! 🎉</h3>
-                    <button onclick="closeReceipt()" class="hover:text-gray-300 p-2 bg-white/10 rounded-full"><i class="fas fa-times"></i></button>
-                </div>
-
-                <div id="receiptCaptureArea" class="bg-white w-full rounded-lg shadow-2xl overflow-hidden relative font-mono text-sm invoice-bg p-6 border border-gray-200">
-                    <div class="text-center mb-6 border-b-2 border-dashed border-gray-300 pb-6">
-                        <div class="font-sans font-black italic text-2xl text-primary leading-none mb-1">
-                            CUCI<br><span class="text-dark">SPATU</span>
-                        </div>
-                        <p class="text-[10px] text-gray-500 font-sans mt-2">Jl. Contoh Serang No. 123, Banten</p>
-                        <p class="text-[10px] text-gray-500 font-sans">IG: @cucispatu.id | WA: 08123456789</p>
+                <!-- Receipt Printable Area (Canvas Area) -->
+                <div id="receipt-content" class="bg-white p-6 w-full max-w-[300px] shadow-2xl relative font-mono text-black overflow-hidden">
+                    
+                    <!-- Receipt Header -->
+                    <div class="text-center mb-4">
+                        <h2 class="text-2xl font-bold tracking-tight">CUCI SPATU</h2>
+                        <p class="text-[10px] uppercase mt-1">Homeservice Serang Banten</p>
+                        <p class="text-[10px] mt-0.5">IG: @cucispatu.serang</p>
                     </div>
 
-                    <div class="mb-4 text-gray-700 text-xs sm:text-sm">
-                        <div class="flex justify-between mb-1">
-                            <span>TANGGAL ORDER:</span>
-                            <span id="rDate" class="font-bold"></span>
+                    <div class="border-b-[1.5px] border-dashed border-black mb-3"></div>
+                    
+                    <!-- Meta Data -->
+                    <div class="text-[10px] space-y-1 mb-3">
+                        <div class="flex justify-between gap-2">
+                            <span class="shrink-0">TANGGAL</span>
+                            <span id="receiptDate" class="text-right"></span>
                         </div>
-                        <div class="flex justify-between mb-1">
-                            <span>NO. ORDER:</span>
-                            <span id="rOrder" class="font-bold"></span>
-                        </div>
-                        <div class="flex justify-between mb-1">
-                            <span>PELANGGAN:</span>
-                            <span id="rName" class="font-bold uppercase"></span>
-                        </div>
-                        <!-- Tambahan Tanggal Jemput di Struk -->
-                        <div class="flex justify-between mb-1 text-primary">
-                            <span>JEMPUT/ANTAR:</span>
-                            <span id="rPickup" class="font-black text-right max-w-[150px]"></span>
+                        <div class="flex justify-between gap-2">
+                            <span class="shrink-0">NO ORDER</span>
+                            <span id="receiptId" class="text-right font-bold"></span>
                         </div>
                     </div>
 
-                    <div class="border-y-2 border-dashed border-gray-300 py-4 mb-4 text-gray-800 text-xs sm:text-sm">
-                        <div class="flex justify-between font-bold mb-2">
-                            <span>LAYANAN (x<span id="rQty"></span>)</span>
-                            <span>SUBTOTAL</span>
+                    <div class="border-b-[1.5px] border-dashed border-black mb-3"></div>
+
+                    <!-- Customer Data -->
+                    <div class="text-[10px] mb-3 space-y-1 w-full">
+                        <div class="font-bold">PELANGGAN:</div>
+                        <div id="r-nama" class="uppercase break-words"></div>
+                        <div id="r-nohp" class="break-words"></div>
+                        <div id="r-alamat" class="mt-1 leading-relaxed break-words whitespace-pre-wrap"></div>
+                        <div id="r-lokasi" class="mt-1 text-[8.5px] text-gray-600 break-all"></div>
+                    </div>
+
+                    <div class="border-b-[1.5px] border-dashed border-black mb-3"></div>
+
+                    <!-- Shoes & Services -->
+                    <div class="text-[10px] mb-3 space-y-1.5 w-full">
+                        <div class="font-bold mb-2">DETAIL LAYANAN:</div>
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="w-[35%] text-gray-600 shrink-0">MERK</span>
+                            <span id="r-merk" class="w-[65%] text-right uppercase font-medium break-words"></span>
                         </div>
-                        <div class="flex justify-between">
-                            <span id="rService" class="truncate pr-2"></span>
-                            <span id="rSubtotal"></span>
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="w-[35%] text-gray-600 shrink-0">BAHAN</span>
+                            <span id="r-bahan" class="w-[65%] text-right uppercase break-words"></span>
                         </div>
-                        <div class="flex justify-between text-[10px] text-gray-500 mt-1">
-                            <span>Biaya Jemput & Antar</span>
-                            <span>Gratis</span>
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="w-[35%] text-gray-600 shrink-0">JUMLAH</span>
+                            <span id="r-jumlah" class="w-[65%] text-right break-words"></span>
+                        </div>
+                        <div class="flex justify-between items-start gap-2 mt-2">
+                            <span class="w-[35%] font-bold shrink-0">LAYANAN</span>
+                            <span id="r-layanan" class="w-[65%] text-right font-bold uppercase break-words"></span>
+                        </div>
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="w-[35%] text-gray-600 shrink-0">WAKTU</span>
+                            <span id="r-waktu" class="w-[65%] text-right uppercase break-words"></span>
+                        </div>
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="w-[35%] text-gray-600 shrink-0">PICKUP</span>
+                            <span id="r-jadwal" class="w-[65%] text-right break-words"></span>
+                        </div>
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="w-[35%] font-bold text-blue-600 shrink-0">EST. SELESAI</span>
+                            <span id="r-estimasi" class="w-[65%] text-right font-bold text-blue-600 break-words"></span>
                         </div>
                     </div>
 
-                    <div class="flex justify-between items-center text-lg sm:text-xl font-black text-dark mb-6">
-                        <span>TOTAL:</span>
-                        <span id="rTotal"></span>
-                    </div>
-
-                    <div class="bg-blue-50 text-primary text-center p-2 rounded text-[10px] font-bold font-sans border border-blue-100 mb-6 uppercase tracking-widest">
-                        Status: Menunggu Pick-up
-                    </div>
-
-                    <div class="text-center text-[10px] sm:text-xs text-gray-500">
-                        <p class="mb-1">Terima kasih telah mempercayakan</p>
-                        <p>kebersihan sepatu Anda kepada kami!</p>
-                        <div class="mt-4 opacity-50 flex justify-center">
-                            <svg width="150" height="30" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="0" y="0" width="2" height="30" fill="black"/>
-                                <rect x="4" y="0" width="4" height="30" fill="black"/>
-                                <rect x="10" y="0" width="2" height="30" fill="black"/>
-                                <rect x="14" y="0" width="6" height="30" fill="black"/>
-                                <rect x="22" y="0" width="2" height="30" fill="black"/>
-                                <rect x="28" y="0" width="8" height="30" fill="black"/>
-                                <rect x="40" y="0" width="2" height="30" fill="black"/>
-                                <rect x="44" y="0" width="4" height="30" fill="black"/>
-                                <rect x="52" y="0" width="6" height="30" fill="black"/>
-                                <rect x="62" y="0" width="2" height="30" fill="black"/>
-                                <rect x="68" y="0" width="4" height="30" fill="black"/>
-                                <rect x="76" y="0" width="2" height="30" fill="black"/>
-                                <rect x="80" y="0" width="6" height="30" fill="black"/>
-                                <rect x="90" y="0" width="2" height="30" fill="black"/>
-                                <rect x="94" y="0" width="8" height="30" fill="black"/>
-                                <rect x="106" y="0" width="4" height="30" fill="black"/>
-                                <rect x="114" y="0" width="2" height="30" fill="black"/>
-                                <rect x="120" y="0" width="6" height="30" fill="black"/>
-                                <rect x="130" y="0" width="4" height="30" fill="black"/>
-                                <rect x="136" y="0" width="2" height="30" fill="black"/>
-                                <rect x="142" y="0" width="8" height="30" fill="black"/>
-                            </svg>
+                    <!-- Rincian Biaya & Pembayaran -->
+                    <div class="border-b-[1.5px] border-dashed border-black mb-3 mt-1"></div>
+                    <div class="text-[10px] mb-3 space-y-1.5 w-full">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="text-gray-600 shrink-0">METODE BAYAR</span>
+                            <span id="r-pembayaran" class="text-right font-bold break-words uppercase"></span>
+                        </div>
+                        <div class="flex justify-between items-start gap-2 mt-2">
+                            <span class="text-gray-600 shrink-0">SUBTOTAL (<span id="r-qty-sub"></span>x)</span>
+                            <span id="r-subtotal" class="text-right break-words"></span>
+                        </div>
+                        <div class="flex justify-between items-start gap-2" id="r-express-row">
+                            <span class="text-gray-600 shrink-0">BIAYA EXPRESS</span>
+                            <span id="r-express" class="text-right break-words"></span>
+                        </div>
+                        <div class="border-b-[1px] border-dotted border-gray-400 my-1.5"></div>
+                        <div class="flex justify-between items-center gap-2 text-[12px]">
+                            <span class="font-bold shrink-0">TOTAL</span>
+                            <span id="r-total" class="text-right font-bold break-words"></span>
                         </div>
                     </div>
-                </div>
 
-                <div class="w-full mt-6 space-y-3 font-sans">
-                    <button onclick="downloadReceipt()" class="w-full bg-white text-dark font-bold py-3.5 rounded-xl shadow transition hover:bg-gray-100 flex justify-center items-center text-sm">
-                        <i class="fas fa-download mr-2"></i> Unduh Struk (PNG)
-                    </button>
-                    <button onclick="sendToWhatsApp()" class="w-full bg-green-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-green-500/30 transition hover:bg-green-600 flex justify-center items-center text-sm">
-                        <i class="fab fa-whatsapp mr-2 text-xl"></i> Lanjut Chat WhatsApp
-                    </button>
+                    <div class="border-b-[1.5px] border-dashed border-black mb-3"></div>
+
+                    <!-- Note -->
+                    <div class="text-[10px] mb-5 w-full">
+                        <span class="font-bold">CATATAN:</span><br>
+                        <span id="r-catatan" class="uppercase break-words whitespace-pre-wrap block w-full"></span>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="text-center text-[9px] leading-relaxed">
+                        <p>Kondisi detail sepatu akan dicek ulang<br>saat penjemputan oleh tim.</p>
+                        <p class="mt-3 text-[11px] font-bold">*** TERIMA KASIH ***</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-    </main>
-
-    <footer class="bg-dark text-gray-400 py-12 border-t border-gray-800">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0 text-center md:text-left">
-                    <div class="font-black italic leading-none text-2xl text-white opacity-90 mb-2">
-                        CUCI<br>SPATU
-                    </div>
-                    <p class="text-sm text-gray-500 max-w-xs">Layanan Cuci Sepatu Antar Jemput Nomor 1 di Kota Serang.</p>
-                </div>
-                <div class="flex space-x-6 text-xl">
-                    <a href="#" class="hover:text-white transition"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-white transition"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#" class="hover:text-white transition"><i class="fab fa-tiktok"></i></a>
-                </div>
+        <!-- Fixed Bottom Action Bar: Pakai flex-shrink-0 agar tidak tertekan -->
+        <div class="w-full max-w-md mx-auto bg-white border-t border-slate-200 p-5 pb-8 shadow-[0_-15px_40px_rgba(0,0,0,0.1)] rounded-t-3xl mt-auto z-[60] modal-enter relative flex-shrink-0">
+            <div class="flex flex-col gap-3 mb-4">
+                <button onclick="sendToWhatsApp()" class="w-full bg-[#25D366] text-white py-4 rounded-xl font-bold text-base hover:bg-[#20b858] transition-all active:scale-[0.98] shadow-lg shadow-green-500/20 flex items-center justify-center gap-2">
+                    <i data-lucide="send" class="w-5 h-5"></i> Kirim WA ke Customer
+                </button>
+                <button onclick="downloadReceipt()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold text-base hover:bg-slate-800 transition-all active:scale-[0.98] shadow-lg shadow-slate-900/20 flex items-center justify-center gap-2">
+                    <i data-lucide="download" class="w-5 h-5"></i> Unduh Struk
+                </button>
             </div>
-            <div class="mt-8 pt-8 border-t border-gray-800 text-sm text-center md:text-left flex flex-col md:flex-row justify-between">
-                <p>&copy; 2026 Cuci Spatu. All rights reserved.</p>
-                <p class="mt-2 md:mt-0">Dibuat khusus untuk area Serang, Banten.</p>
-            </div>
+            <button onclick="closeModal('receiptModal')" class="w-full bg-transparent text-slate-500 py-2 text-sm font-semibold hover:text-slate-800 transition flex items-center justify-center gap-1.5">
+                <i data-lucide="x-circle" class="w-5 h-5"></i> Tutup & Kembali
+            </button>
         </div>
-    </footer>
+    </div>
 
+    <!-- JavaScript Logic -->
     <script>
-        const ADMIN_PHONE = "628211873266"; 
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Data order
         let orderData = {};
+        
+        // Nomor WA Admin (Ganti dengan nomor asli: 628...)
+        const ADMIN_WA_NUMBER = "6281234567890"; 
 
-        // Pop-up Promo Init
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                const modal = document.getElementById('promoModal');
-                modal.classList.remove('hidden');
-                void modal.offsetWidth;
-                modal.classList.remove('opacity-0');
-            }, 1000);
-        });
-
-        function closePromo() {
-            const modal = document.getElementById('promoModal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-
-        // Navbar Scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 10) {
-                nav.classList.add('shadow-sm');
-            } else {
-                nav.classList.remove('shadow-sm');
-            }
-        });
-
-        // Form Modal Logic
-        function openOrderModal(selectedService = '') {
-            // Auto select service if passed
-            if(selectedService) {
-                const select = document.getElementById('servicePackage');
-                select.value = selectedService;
-                updatePrice();
-            }
-
-            const modal = document.getElementById('orderModal');
-            modal.classList.remove('hidden');
-            void modal.offsetWidth;
-            modal.classList.remove('opacity-0');
-        }
-
-        function closeOrderModal() {
-            const modal = document.getElementById('orderModal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-
-        function updatePrice() {
-            const select = document.getElementById('servicePackage');
-            const qtyInput = document.getElementById('qty');
-            let qty = parseInt(qtyInput.value) || 1;
+        // Notifikasi Toast
+        function showToast(message) {
+            const toast = document.getElementById('toastMessage');
+            document.getElementById('toastText').innerText = message;
+            toast.classList.remove('-translate-y-20', 'opacity-0');
             
-            if (select.value === 'Promo 3 Pasang') {
-                qtyInput.value = 3; 
-                qtyInput.setAttribute('disabled', 'true');
-                qty = 3;
-            } else {
-                qtyInput.removeAttribute('disabled');
-            }
+            setTimeout(() => {
+                toast.classList.add('-translate-y-20', 'opacity-0');
+            }, 3500);
+        }
 
-            const priceStr = select.options[select.selectedIndex]?.dataset?.price;
-            if(priceStr) {
-                let basePrice = parseInt(priceStr);
-                let total = select.value !== 'Promo 3 Pasang' ? basePrice * qty : basePrice;
-                document.getElementById('displayTotal').innerText = formatRupiah(total);
+        // Event listener khusus agar ketika layanan Promo 3 Pasang dipilih, jumlah otomatis jadi 3 dan dikunci
+        document.getElementById('layanan').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const isPackage = selectedOption.getAttribute('data-is-package') === 'true';
+            const jumlahInput = document.getElementById('jumlah');
+            
+            if (isPackage) {
+                jumlahInput.value = 3;
+                jumlahInput.setAttribute('readonly', 'true');
+                jumlahInput.classList.add('bg-slate-200', 'cursor-not-allowed');
+                jumlahInput.classList.remove('bg-slate-50');
+                showToast("Layanan Promo otomatis set jumlah ke 3 pasang!");
             } else {
-                document.getElementById('displayTotal').innerText = 'Rp 0';
+                jumlahInput.removeAttribute('readonly');
+                jumlahInput.classList.remove('bg-slate-200', 'cursor-not-allowed');
+                jumlahInput.classList.add('bg-slate-50');
+            }
+        });
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            if(modalId === 'formModal') {
+                modal.style.display = 'flex';
             }
         }
 
-        function formatRupiah(number) {
-            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('hidden');
+            if(modalId === 'formModal') {
+                modal.style.display = '';
+            }
         }
 
-        function getLocation() {
-            const btnText = document.getElementById('locText');
-            const btnIcon = document.querySelector('#btnLocation i');
+        function toggleLoading(show, text = "Memproses Pesanan...") {
+            const loading = document.getElementById('loadingModal');
+            document.getElementById('loadingMessage').innerText = text;
+            if(show) {
+                loading.classList.remove('hidden');
+                loading.style.display = 'flex';
+            } else {
+                loading.classList.add('hidden');
+                loading.style.display = '';
+            }
+        }
+
+        function getShareLoc() {
+            const locInput = document.getElementById('lokasi');
+            locInput.value = "Mencari lokasi (Mohon tunggu)...";
             
             if (navigator.geolocation) {
-                btnText.innerText = "Mencari Lokasi...";
-                btnIcon.className = "fas fa-spinner fa-spin mr-1";
-                
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-                        const mapLink = `https://maps.google.com/?q=${lat},${lon}`;
-                        
-                        document.getElementById('mapsLink').value = mapLink;
-                        btnText.innerText = "Lokasi Tersimpan!";
-                        btnText.classList.add('text-green-600');
-                        btnIcon.className = "fas fa-check-circle mr-1 text-green-600";
+                        const lng = position.coords.longitude;
+                        locInput.value = `https://maps.google.com/?q=${lat},${lng}`;
+                        showToast("Berhasil mendapatkan lokasi GPS!");
                     },
                     (error) => {
-                        alert("Gagal mengakses lokasi. Ketik alamat manual.");
-                        btnText.innerText = "Gagal (Isi Manual)";
-                        btnIcon.className = "fas fa-exclamation-triangle mr-1";
+                        locInput.value = "";
+                        showToast("Gagal mengambil GPS. Silakan ketik alamat manual.");
                     },
                     { enableHighAccuracy: true, timeout: 5000 }
                 );
             } else {
-                alert("Browser Anda tidak mendukung geolokasi.");
+                showToast("Browser Anda tidak mendukung fitur GPS.");
+                locInput.value = "";
             }
         }
 
-        function processOrder(e) {
+        function formatDateTimeLocal(dtString) {
+            if(!dtString) return "-";
+            const dt = new Date(dtString);
+            return dt.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
+        function calculateCompletion(pickupStr, waktuSelected) {
+            if(!pickupStr) return "-";
+            const dt = new Date(pickupStr);
+            const isExpress = waktuSelected.includes('Express');
+            const daysToAdd = isExpress ? 1 : 3;
+            dt.setDate(dt.getDate() + daysToAdd);
+            return dt.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
+        const formatRupiah = (angka) => {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
+        };
+
+        function handleFormSubmit(e) {
             e.preventDefault();
-            document.getElementById('formLoading').classList.remove('hidden');
 
-            const select = document.getElementById('servicePackage');
-            let qty = document.getElementById('qty').value;
-            const priceStr = select.options[select.selectedIndex].dataset.price;
-            let total = parseInt(priceStr);
-            if(select.value !== 'Promo 3 Pasang') total = total * parseInt(qty);
-            else qty = 3; 
-
-            const now = new Date();
-            const orderId = 'CS' + now.getFullYear().toString().substr(-2) + 
-                            String(now.getMonth()+1).padStart(2,'0') + 
-                            String(now.getDate()).padStart(2,'0') + 
-                            Math.floor(1000 + Math.random() * 9000);
-
-            // Format tanggal jemput/antar otomatis (Hari ini s/d Hari ini + 3)
-            const pickupDate = new Date(now);
-            const deliveryDate = new Date(now);
-            deliveryDate.setDate(now.getDate() + 3);
+            // Setup Kalkulasi Harga
+            const layananSelect = document.getElementById('layanan');
+            const selectedOption = layananSelect.options[layananSelect.selectedIndex];
+            const basePrice = parseInt(selectedOption.getAttribute('data-price')) || 0;
+            const isPackage = selectedOption.getAttribute('data-is-package') === 'true';
+            const jumlahQty = parseInt(document.getElementById('jumlah').value) || 1;
             
-            const options = { weekday: 'short', day: 'numeric', month: 'short' };
-            const strPickup = pickupDate.toLocaleDateString('id-ID', options);
-            const strDelivery = deliveryDate.toLocaleDateString('id-ID', options);
-            const formattedPickup = `${strPickup} - ${strDelivery}`;
+            const waktuSelected = document.querySelector('input[name="waktu"]:checked').value;
+            const isExpress = waktuSelected.includes('Express');
+            // Jika express, dikalikan 20rb per jumlah sepatu
+            const biayaExpress = isExpress ? (20000 * jumlahQty) : 0; 
+            
+            // JIKA PACKAGE: harga subtotal adalah harga flat paket, BUKAN dikali jumlah sepatu lagi.
+            const subtotal = isPackage ? basePrice : (basePrice * jumlahQty);
+            const totalKeseluruhan = subtotal + biayaExpress;
+
+            const pickupValue = document.getElementById('jadwal').value;
+            const estimasiValue = calculateCompletion(pickupValue, waktuSelected);
 
             orderData = {
-                id: orderId,
-                date: now.toLocaleDateString('id-ID'),
-                name: document.getElementById('custName').value,
-                phone: document.getElementById('custPhone').value,
-                service: select.value,
-                qty: qty,
-                totalFormat: formatRupiah(total),
-                address: document.getElementById('address').value,
-                maps: document.getElementById('mapsLink').value,
-                pickupDate: formattedPickup
+                nama: document.getElementById('nama').value,
+                nohp: document.getElementById('nohp').value,
+                alamat: document.getElementById('alamat').value,
+                lokasi: document.getElementById('lokasi').value || 'Tidak dilampirkan',
+                merk: document.getElementById('merk').value,
+                bahan: document.getElementById('bahan').value,
+                jumlah: jumlahQty,
+                layanan: selectedOption.text,
+                waktu: waktuSelected,
+                jadwal: formatDateTimeLocal(pickupValue),
+                estimasi: estimasiValue,
+                pembayaran: document.querySelector('input[name="pembayaran"]:checked').value,
+                catatan: document.getElementById('catatan').value || '-',
+                hargaSubtotal: subtotal,
+                hargaExpress: biayaExpress,
+                hargaTotal: totalKeseluruhan,
+                qty: jumlahQty,
+                isPackage: isPackage
             };
 
-            // Inject to Receipt
-            document.getElementById('rDate').innerText = orderData.date;
-            document.getElementById('rOrder').innerText = orderData.id;
-            document.getElementById('rName').innerText = orderData.name;
-            document.getElementById('rPickup').innerText = orderData.pickupDate; // Tampilkan Tanggal Jemput
-            document.getElementById('rQty').innerText = orderData.qty;
-            document.getElementById('rService').innerText = orderData.service;
-            document.getElementById('rSubtotal').innerText = orderData.totalFormat;
-            document.getElementById('rTotal').innerText = orderData.totalFormat;
+            closeModal('formModal');
+            toggleLoading(true, "Mempersiapkan Struk...");
 
             setTimeout(() => {
-                document.getElementById('formLoading').classList.add('hidden');
-                closeOrderModal();
+                toggleLoading(false);
+
+                // Generate Random Order ID
+                const randomId = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+                const orderId = 'CS-' + randomId;
+
+                // Populate Struk Data
+                document.getElementById('receiptDate').innerText = new Date().toLocaleString('id-ID', { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit' }).replace(/\./g, ':');
+                document.getElementById('receiptId').innerText = orderId;
+                document.getElementById('r-nama').innerText = orderData.nama;
+                document.getElementById('r-nohp').innerText = orderData.nohp;
+                document.getElementById('r-alamat').innerText = orderData.alamat;
+                document.getElementById('r-lokasi').innerText = orderData.lokasi;
+                document.getElementById('r-merk').innerText = orderData.merk;
+                document.getElementById('r-bahan').innerText = orderData.bahan;
+                document.getElementById('r-jumlah').innerText = orderData.jumlah + " Pasang";
+                document.getElementById('r-waktu').innerText = orderData.waktu;
+                document.getElementById('r-layanan').innerText = orderData.layanan;
+                document.getElementById('r-jadwal').innerText = orderData.jadwal;
+                document.getElementById('r-estimasi').innerText = orderData.estimasi;
                 
-                const rModal = document.getElementById('receiptModal');
-                rModal.classList.remove('hidden');
-                void rModal.offsetWidth;
-                rModal.classList.remove('opacity-0');
+                // Populate kalkulasi & rincian biaya ke struk
+                document.getElementById('r-pembayaran').innerText = orderData.pembayaran;
+                document.getElementById('r-qty-sub').innerText = orderData.qty;
+                document.getElementById('r-subtotal').innerText = formatRupiah(orderData.hargaSubtotal);
+                
+                const expressRow = document.getElementById('r-express-row');
+                if(orderData.hargaExpress > 0) {
+                    expressRow.style.display = 'flex';
+                    document.getElementById('r-express').innerText = formatRupiah(orderData.hargaExpress);
+                } else {
+                    expressRow.style.display = 'none'; // Sembunyikan jika bukan layanan express
+                }
+                
+                document.getElementById('r-total').innerText = formatRupiah(orderData.hargaTotal);
+                document.getElementById('r-catatan').innerText = orderData.catatan;
+
+                // Open Receipt Modal
+                const receiptModal = document.getElementById('receiptModal');
+                receiptModal.classList.remove('hidden');
+                receiptModal.style.display = 'flex';
+
+                // Kembalikan atribut input ke awal setelah reset form
+                const jumlahInput = document.getElementById('jumlah');
+                jumlahInput.removeAttribute('readonly');
+                jumlahInput.classList.remove('bg-slate-200', 'cursor-not-allowed');
+                jumlahInput.classList.add('bg-slate-50');
+
+                document.getElementById('orderForm').reset();
             }, 1000);
         }
 
-        function downloadReceipt() {
-            const captureArea = document.getElementById('receiptCaptureArea');
-            html2canvas(captureArea, {
-                scale: 2, 
-                backgroundColor: "#ffffff",
-                useCORS: true
+        function generateCanvasBlob() {
+            const content = document.getElementById('receipt-content');
+            return html2canvas(content, {
+                scale: 3, 
+                useCORS: true,
+                backgroundColor: "#ffffff"
             }).then(canvas => {
+                return new Promise(resolve => {
+                    canvas.toBlob(blob => {
+                        resolve({ canvas, blob });
+                    }, 'image/png');
+                });
+            });
+        }
+
+        function downloadReceipt() {
+            toggleLoading(true, "Mengunduh Struk...");
+            generateCanvasBlob().then(({ canvas }) => {
                 const link = document.createElement('a');
-                link.download = `Struk_CuciSpatu_${orderData.id}.png`;
-                link.href = canvas.toDataURL("image/png");
+                link.download = `Struk-CuciSpatu-${orderData.nama.replace(/\s+/g, '-')}.png`;
+                link.href = canvas.toDataURL('image/png');
                 link.click();
+                toggleLoading(false);
+                showToast("Struk berhasil diunduh ke HP Anda.");
+            }).catch(err => {
+                console.error(err);
+                toggleLoading(false);
+                showToast("Gagal mengunduh struk. Silakan coba lagi.");
             });
         }
 
         function sendToWhatsApp() {
-            let message = `*HALO ADMIN CUCI SPATU!* 👟\nSaya ingin request penjemputan sepatu.\n\n`;
-            message += `*No. Order:* ${orderData.id}\n`;
-            message += `*Jemput/Antar:* ${orderData.pickupDate}\n`;
-            message += `*Nama:* ${orderData.name}\n`;
-            message += `*No HP:* ${orderData.phone}\n`;
-            message += `*Paket:* ${orderData.service} (${orderData.qty} Pasang)\n`;
-            message += `*Total:* ${orderData.totalFormat}\n\n`;
-            message += `*Alamat Jemput:*\n${orderData.address}\n`;
+            toggleLoading(true, "Mengarahkan ke WhatsApp...");
+
+            // Format nomor HP form ke format WhatsApp (Ubah 0 awalan menjadi 62)
+            let customerPhone = orderData.nohp.replace(/\D/g, ''); // bersihkan karakter non-angka
+            if (customerPhone.startsWith('0')) {
+                customerPhone = '62' + customerPhone.substring(1);
+            }
+
+            // Dapatkan ID Order dari elemen struk
+            const orderId = document.getElementById('receiptId').innerText;
+
+            // Template teks untuk customer (sekarang menyertakan pembayaran dan total harga)
+            const template = `Halo ${orderData.nama} ini detail pesanannya ya:
+
+No Order: ${orderId}
+Layanan: ${orderData.layanan}
+Jumlah: ${orderData.jumlah} Pasang (${orderData.merk})
+Waktu: ${orderData.waktu}
+Jadwal Pickup: ${orderData.jadwal}
+*Estimasi Selesai:* ${orderData.estimasi}
+Metode Bayar: ${orderData.pembayaran}
+*Total Biaya: ${formatRupiah(orderData.hargaTotal)}*
+
+Mohon siapkan sepatu Anda pada jadwal yang telah ditentukan. Terima kasih!`;
+
+            const encodedText = encodeURIComponent(template);
+            const waUrl = `https://wa.me/${customerPhone}?text=${encodedText}`;
             
-            if(orderData.maps) message += `\n*Link Maps:* ${orderData.maps}\n`;
-            message += `\n_Struk pesanan sudah saya simpan. Mohon konfirmasi jadwal pick-up ya!_`;
-
-            const encodedMessage = encodeURIComponent(message);
-            const waURL = `https://wa.me/${ADMIN_PHONE}?text=${encodedMessage}`;
-            window.open(waURL, '_blank');
-        }
-
-        function closeReceipt() {
-            const modal = document.getElementById('receiptModal');
-            modal.classList.add('opacity-0');
             setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+                toggleLoading(false);
+                window.open(waUrl, '_blank');
+            }, 800);
         }
     </script>
 </body>
