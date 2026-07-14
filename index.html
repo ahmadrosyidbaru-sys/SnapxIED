@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CUCI SPATU - Serang Banten</title>
+    <title>Pesan Cuci Sepatu - CUCI SPATU Serang</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,7 +48,7 @@
         .thermal-wrapper { filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2)); }
         .thermal-paper {
             background-color: #ffffff;
-            font-family: 'Courier Prime', 'Courier New', Courier, monospace; /* Tampilan font struk kasir asli */
+            font-family: 'Courier Prime', 'Courier New', Courier, monospace;
             color: #000000;
             width: 100%;
             max-width: 320px;
@@ -56,7 +56,6 @@
             position: relative;
             padding: 20px 15px;
         }
-        /* Efek gerigi kertas di atas dan bawah */
         .thermal-paper::before, .thermal-paper::after {
             content: ""; position: absolute; left: 0; right: 0; height: 6px;
             background-size: 12px 100%;
@@ -70,12 +69,13 @@
 </head>
 <body class="flex items-center justify-center min-h-[100dvh]">
 
-    <!-- Toast Notification for Upload Info -->
+    <!-- Toast Notification -->
     <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 px-5 py-3 rounded-xl shadow-2xl z-[100] transition-all duration-300 opacity-0 translate-y-[-20px] pointer-events-none flex items-center gap-2 font-medium text-sm w-max max-w-[90vw]">
         <i data-lucide="info" class="w-5 h-5" id="toast-icon"></i>
         <span id="toast-msg">Notifikasi</span>
     </div>
 
+    <!-- MAIN HOMEPAGE CARD -->
     <div class="w-full max-w-md bg-slate-50 min-h-[100dvh] relative shadow-2xl overflow-hidden flex flex-col">
         <!-- Header -->
         <div class="bg-slate-900 text-white rounded-b-[2rem] p-10 text-center shadow-md relative z-10">
@@ -86,18 +86,26 @@
         <!-- Main Content -->
         <div class="flex-1 flex flex-col items-center justify-center p-8 space-y-10">
             <div class="relative w-40 h-40 bg-white rounded-full flex items-center justify-center shadow-lg border border-slate-100 text-blue-600">
-                <i data-lucide="sparkles" class="w-16 h-16"></i>
+                <i data-lucide="shopping-bag" class="w-16 h-16"></i>
                 <div class="absolute -bottom-3 bg-blue-600 text-white text-xs font-semibold px-5 py-1.5 rounded-full shadow-md uppercase tracking-wider">
-                    Home Service
+                    Siap Jemput
                 </div>
             </div>
+            
             <div class="text-center space-y-3 px-4">
                 <h2 class="text-2xl font-bold text-slate-800">Sepatu Kamu Kotor?</h2>
-                <p class="text-sm text-slate-500 leading-relaxed">Biar kami yang menjemput dan merawat sepatu Anda.</p>
+                <p class="text-sm text-slate-500 leading-relaxed">Pesan sekarang, biar kami yang menjemput dan merawat sepatu kesayanganmu.</p>
             </div>
-            <button onclick="openModal('formModal')" class="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold text-base hover:bg-blue-700 active:scale-[0.98] transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">
-                <i data-lucide="clipboard-list" class="w-5 h-5"></i> BUAT STRUK BARU
-            </button>
+
+            <!-- Tombol Berjejer di Home -->
+            <div class="w-full space-y-3">
+                <button onclick="openModal('formModal')" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-base hover:bg-blue-700 active:scale-[0.98] transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
+                    <i data-lucide="calendar-plus" class="w-5 h-5"></i> PESAN SEKARANG
+                </button>
+                <a href="https://infocucispatu.netlify.app" target="_blank" class="w-full bg-white text-blue-600 border-2 border-blue-600 py-4 rounded-xl font-bold text-base hover:bg-blue-50 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="search" class="w-5 h-5"></i> CEK PESANAN
+                </a>
+            </div>
         </div>
     </div>
 
@@ -107,8 +115,8 @@
             
             <div class="flex justify-between items-center p-5 border-b border-slate-100">
                 <div class="flex items-center gap-2">
-                    <div class="bg-blue-100 p-2 rounded-lg text-blue-600"><i data-lucide="file-text" class="w-5 h-5"></i></div>
-                    <h3 class="font-bold text-lg text-slate-800">Form Order</h3>
+                    <div class="bg-blue-100 p-2 rounded-lg text-blue-600"><i data-lucide="clipboard-edit" class="w-5 h-5"></i></div>
+                    <h3 class="font-bold text-lg text-slate-800">Isi Data Pesanan</h3>
                 </div>
                 <button onclick="closeModal('formModal')" class="text-slate-400 hover:text-red-500"><i data-lucide="x" class="w-6 h-6"></i></button>
             </div>
@@ -117,18 +125,18 @@
                 <form id="orderForm" onsubmit="handleFormSubmit(event)">
                     
                     <div class="space-y-4 mb-6">
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Data Diri & Lokasi</h4>
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Data Diri & Lokasi Jemput</h4>
                         <div>
-                            <label class="text-sm font-semibold text-slate-700 block mb-1">Nama Pelanggan</label>
-                            <input type="text" id="nama" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500">
+                            <label class="text-sm font-semibold text-slate-700 block mb-1">Nama Lengkap Anda</label>
+                            <input type="text" id="nama" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500" placeholder="Masukkan nama Anda">
                         </div>
                         <div>
-                            <label class="text-sm font-semibold text-slate-700 block mb-1">No. HP/WA</label>
+                            <label class="text-sm font-semibold text-slate-700 block mb-1">No. HP/WhatsApp Anda</label>
                             <input type="tel" id="nohp" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500" placeholder="08...">
                         </div>
                         <div>
-                            <label class="text-sm font-semibold text-slate-700 block mb-1">Alamat Lengkap</label>
-                            <textarea id="alamat" required rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500"></textarea>
+                            <label class="text-sm font-semibold text-slate-700 block mb-1">Alamat Penjemputan Lengkap</label>
+                            <textarea id="alamat" required rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500" placeholder="Detail jalan, nomor rumah, RT/RW"></textarea>
                         </div>
                         <div>
                             <label class="text-sm font-semibold text-slate-700 block mb-1">Link Gmaps / Titik Lokasi</label>
@@ -146,7 +154,7 @@
                     <hr class="border-slate-100">
 
                     <div class="space-y-4 mt-6">
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Layanan & Harga</h4>
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Layanan & Spesifikasi</h4>
                         
                         <div>
                             <label class="text-sm font-semibold text-slate-700 block mb-1">Pilih Layanan</label>
@@ -178,8 +186,8 @@
 
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="text-sm font-semibold text-slate-700 block mb-1">Keterangan Sepatu</label>
-                                <input type="text" id="merk" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500 uppercase" placeholder="cth: VANS, NIKE">
+                                <label class="text-sm font-semibold text-slate-700 block mb-1">Merk & Warna Sepatu</label>
+                                <input type="text" id="merk" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500 uppercase" placeholder="cth: VANS HITAM">
                             </div>
                             <div>
                                 <label class="text-sm font-semibold text-slate-700 block mb-1">Jumlah (Pasang)</label>
@@ -199,7 +207,7 @@
                                 <label class="relative">
                                     <input type="radio" name="waktu" value="Express" onchange="updateLivePrice()" class="peer sr-only">
                                     <div class="p-3 rounded-xl border border-slate-200 cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50 text-center">
-                                        <div class="font-bold text-sm">Express</div><div class="text-xs text-blue-600">+20k/psg (24jam)</div>
+                                        <div class="font-bold text-sm">Express</div><div class="text-xs text-blue-600">+15k/psg (24jam)</div>
                                     </div>
                                 </label>
                             </div>
@@ -207,33 +215,54 @@
 
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="text-sm font-semibold text-slate-700 block mb-1">Jadwal Pickup</label>
+                                <label class="text-sm font-semibold text-slate-700 block mb-1">Kapan Dijemput?</label>
                                 <input type="datetime-local" id="jadwal" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm">
                             </div>
                             <div>
-                                <label class="text-sm font-semibold text-slate-700 block mb-1">Pembayaran</label>
+                                <label class="text-sm font-semibold text-slate-700 block mb-1">Metode Bayar</label>
                                 <select id="pembayaran" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm">
-                                    <option value="COD">Tunai / COD</option>
-                                    <option value="QRIS">Transfer QRIS</option>
+                                    <option value="COD">Tunai / Bayar di Tempat</option>
+                                    <option value="QRIS">Transfer via QRIS</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <!-- FITUR VOUCHER (Otomatis Cek) -->
+                        <div class="bg-slate-100 border border-slate-200 rounded-xl p-4">
+                            <label class="text-sm font-bold text-slate-700 block mb-1">Punya Kode Voucher?</label>
+                            <div class="relative">
+                                <input type="text" id="voucherCodeInput" oninput="debounceVerifyVoucher()" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm uppercase font-semibold pr-10" placeholder="Ketik kode (Otomatis dicek)">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                    <div id="btnVoucherSpinner" class="spinner-blue hidden"></div>
+                                </div>
+                            </div>
+                            <!-- Feedback Status Voucher -->
+                            <div id="voucherFeedback" class="mt-2 text-xs font-medium hidden items-center gap-1 transition-all">
+                                <span id="voucherFeedbackIcon"></span>
+                                <span id="voucherFeedbackText"></span>
                             </div>
                         </div>
                         
                         <div>
-                            <label class="text-sm font-semibold text-slate-700 block mb-1">Catatan Tambahan</label>
-                            <textarea id="catatan" rows="1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="-"></textarea>
+                            <label class="text-sm font-semibold text-slate-700 block mb-1">Catatan Tambahan (Opsional)</label>
+                            <textarea id="catatan" rows="1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="Contoh: Tolong jemput sebelum jam 1 siang..."></textarea>
                         </div>
                     </div>
 
-                    <!-- LIVE ESTIMASI HARGA (Tampil otomatis) -->
-                    <div id="livePriceBox" class="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4 hidden">
-                        <div class="flex justify-between text-sm text-slate-600 mb-1">
+                    <!-- LIVE ESTIMASI HARGA -->
+                    <div id="livePriceBox" class="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4 hidden space-y-1.5">
+                        <div class="flex justify-between text-sm text-slate-600">
                             <span>Subtotal Layanan (<span id="liveQty">0</span> psg)</span>
                             <span id="liveSubtotal">Rp 0</span>
                         </div>
-                        <div class="flex justify-between text-sm text-slate-600 mb-2">
+                        <div class="flex justify-between text-sm text-slate-600">
                             <span>Biaya Kecepatan <span id="liveWaktuLabel"></span></span>
                             <span id="liveWaktuBiaya">Rp 0</span>
+                        </div>
+                        <!-- Line Potongan Voucher jika ada -->
+                        <div id="liveDiscountRow" class="flex justify-between text-sm text-green-600 font-semibold hidden">
+                            <span>Diskon Voucher (<span id="liveDiscountName"></span>)</span>
+                            <span id="liveDiscountVal">-Rp 0</span>
                         </div>
                         <div class="flex justify-between font-bold text-blue-800 border-t border-blue-200 pt-2 text-lg">
                             <span>Estimasi Total</span>
@@ -244,32 +273,31 @@
 
             <!-- Sticky Submit -->
             <div class="p-4 border-t border-slate-100 bg-white">
-                <button type="submit" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-slate-800 active:scale-[0.98] transition">
-                    Proses Pesanan
+                <button type="submit" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-slate-800 active:scale-[0.98] transition flex justify-center items-center gap-2">
+                    Kirim Pesanan Sekarang <i data-lucide="arrow-right" class="w-5 h-5"></i>
                 </button>
             </div>
             </form>
         </div>
     </div>
 
+    <!-- LOADING MODAL -->
     <div id="loadingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden items-center justify-center">
         <div class="flex flex-col items-center">
             <div class="spinner mb-4"></div>
-            <p id="loadingText" class="text-white font-medium tracking-wide">Memproses...</p>
+            <p id="loadingText" class="text-white font-medium tracking-wide">Memproses Pesanan Anda...</p>
         </div>
     </div>
 
-    <!-- 3. STRUK (RECEIPT) MODAL - FLEXBOX LAYOUT (Anti Overlap) -->
+    <!-- 3. STRUK (RECEIPT) MODAL -->
     <div id="receiptModal" class="fixed inset-0 bg-slate-900 z-50 hidden flex-col">
-        
         <!-- Navbar -->
         <div class="flex-none bg-slate-800 border-b border-slate-700 p-4 text-center">
-            <h3 class="text-white font-bold tracking-wide">Struk Pesanan Digital</h3>
+            <h3 class="text-white font-bold tracking-wide">Ringkasan Pesanan Anda</h3>
         </div>
 
         <!-- Scrollable Receipt Area -->
         <div class="flex-1 overflow-y-auto p-4 flex justify-center bg-[#2b3544]">
-            
             <div class="thermal-wrapper w-full max-w-[320px] mb-10">
                 <div id="receipt-content" class="thermal-paper text-[11px] leading-tight">
                     
@@ -333,9 +361,15 @@
                         <span>SUBTOTAL</span>
                         <span id="r-subtotal" class="font-bold"></span>
                     </div>
-                    <div class="flex justify-between mb-2 uppercase text-[10px]">
+                    <div class="flex justify-between mb-1 uppercase text-[10px]">
                         <span id="r-waktulabel"></span>
                         <span id="r-waktubiaya"></span>
+                    </div>
+
+                    <!-- BARIS BARU: Diskon Voucher di Struk -->
+                    <div id="r-discountRow" class="flex justify-between mb-2 text-[10px] uppercase font-bold hidden">
+                        <span>DISKON VOUCHER (<span id="r-discountCode"></span>)</span>
+                        <span id="r-discountVal"></span>
                     </div>
                     
                     <div class="flex justify-between font-bold text-[14px] border-t-2 border-black pt-2 pb-1">
@@ -383,14 +417,14 @@
         <!-- Fixed Bottom Action Bar -->
         <div class="flex-none bg-white p-4 pb-safe shadow-[0_-5px_15px_rgba(0,0,0,0.1)] z-10">
             <div class="max-w-md mx-auto space-y-3">
-                <button onclick="downloadReceipt()" class="w-full bg-slate-100 text-slate-800 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-slate-200 active:scale-95 transition">
-                    <i data-lucide="download" class="w-4 h-4"></i> Unduh Struk PNG
+                <button onclick="sendToWhatsApp()" class="w-full bg-[#25D366] text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-green-500/20 hover:bg-green-600 active:scale-95 transition">
+                    <i data-lucide="send" class="w-5 h-5"></i> Kirim Pesanan ke WhatsApp Admin
                 </button>
-                <button onclick="sendToWhatsApp()" class="w-full bg-[#25D366] text-white py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-green-500/20 hover:bg-green-600 active:scale-95 transition">
-                    <i data-lucide="send" class="w-4 h-4"></i> Kirim WA ke Customer
+                <button onclick="downloadReceipt()" class="w-full bg-slate-100 text-slate-800 py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-slate-200 active:scale-95 transition">
+                    <i data-lucide="download" class="w-4 h-4"></i> Simpan Struk
                 </button>
-                <button onclick="closeModal('receiptModal')" class="w-full text-slate-500 py-2 font-semibold hover:text-slate-800 transition">
-                    Kembali ke Menu Awal
+                <button onclick="window.location.reload()" class="w-full text-slate-500 py-2 font-semibold hover:text-slate-800 transition">
+                    Kembali ke Beranda (Refresh Halaman)
                 </button>
             </div>
         </div>
@@ -399,10 +433,66 @@
     <script>
         lucide.createIcons();
 
-        // ⚠️ PENTING: Ganti URL di bawah dengan URL Web App Google Apps Script Anda ⚠️
+        // 1. URL SPREADSHEET UTAMA (Untuk Mengirim Data Pesanan, Tetap Utuh)
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyiqNnAQwSkRIp3Daa1DoBO5Ap73raP2Wp-OPayycWmHkTXVA4xS9ZYwOKYDGbNo8GP/exec';
+        
+        // 2. URL SPREADSHEET VOUCHER (Link Baru Anda Untuk Cek Voucher)
+        const voucherScriptURL = 'https://script.google.com/macros/s/AKfycbzl8lQKZZDwO6VujEdCA0jXVAHE_Inqlor_PwsoxKNAazINyarBFoU9iY9XVIkXM9MaVw/exec'; 
+
+        // Nomor WhatsApp Admin/Toko
+        const adminWhatsAppNumber = "628121873266"; 
 
         let orderData = {};
+        
+        // State Voucher
+        let activeVoucher = null;
+
+        function getLocation() {
+            const icon = document.getElementById('icon-lokasi');
+            const spinner = document.getElementById('spinner-lokasi');
+            const inputLokasi = document.getElementById('lokasi');
+            const msgLokasi = document.getElementById('lokasi-msg');
+
+            if (navigator.geolocation) {
+                // Tampilkan loading spinner
+                icon.classList.add('hidden');
+                spinner.classList.remove('hidden');
+                msgLokasi.classList.add('hidden');
+
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        // Jika berhasil didapatkan
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        inputLokasi.value = `https://maps.google.com/?q=${lat},${lng}`;
+                        
+                        // Kembalikan ikon
+                        spinner.classList.add('hidden');
+                        icon.classList.remove('hidden');
+                        
+                        // Tampilkan pesan sukses
+                        msgLokasi.innerText = "✓ Titik lokasi berhasil didapatkan";
+                        msgLokasi.className = "text-xs mt-1 font-medium text-green-600 block";
+                    },
+                    (error) => {
+                        // Jika gagal
+                        spinner.classList.add('hidden');
+                        icon.classList.remove('hidden');
+                        
+                        let errMsg = "Gagal mendapatkan lokasi.";
+                        if (error.code === 1) errMsg = "Akses lokasi ditolak. Izinkan GPS di HP/Browser Anda.";
+                        else if (error.code === 2) errMsg = "Sinyal lokasi tidak tersedia.";
+                        else if (error.code === 3) errMsg = "Waktu pencarian lokasi habis.";
+
+                        msgLokasi.innerText = "❌ " + errMsg;
+                        msgLokasi.className = "text-xs mt-1 font-medium text-red-500 block";
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            } else {
+                showToast("GPS tidak didukung di browser ini", "error");
+            }
+        }
 
         function formatRupiah(angka) { return "Rp " + angka.toLocaleString('id-ID'); }
 
@@ -423,71 +513,107 @@
             
             lucide.createIcons();
             
-            // Animasi muncul
-            setTimeout(() => {
-                toast.classList.remove('opacity-0', 'translate-y-[-20px]');
-            }, 10);
+            setTimeout(() => { toast.classList.remove('opacity-0', 'translate-y-[-20px]'); }, 10);
+            setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-[-20px]'); }, 4000);
+        }
+
+        // FUNGSI VERIFIKASI VOUCHER OTOMATIS
+        let voucherTimeout = null;
+        function debounceVerifyVoucher() {
+            clearTimeout(voucherTimeout);
+            const codeInput = document.getElementById('voucherCodeInput').value.trim();
             
-            // Animasi hilang
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'translate-y-[-20px]');
-            }, 4000);
-        }
-
-        function getLocation() {
-            const lokasiInput = document.getElementById('lokasi');
-            const icon = document.getElementById('icon-lokasi');
-            const spinner = document.getElementById('spinner-lokasi');
-            const msg = document.getElementById('lokasi-msg');
-
-            if (navigator.geolocation) {
-                // UI Loading state
-                icon.classList.add('hidden');
-                spinner.classList.remove('hidden');
-                msg.classList.remove('hidden', 'text-red-500', 'text-green-600');
-                msg.classList.add('text-blue-500');
-                msg.innerText = "Mencari titik lokasi...";
-
-                navigator.geolocation.getCurrentPosition(
-                    function(position) {
-                        const lat = position.coords.latitude;
-                        const lng = position.coords.longitude;
-                        lokasiInput.value = `https://www.google.com/maps?q=${lat},${lng}`;
-                        
-                        // UI Success state
-                        icon.classList.remove('hidden');
-                        spinner.classList.add('hidden');
-                        msg.classList.remove('text-blue-500');
-                        msg.classList.add('text-green-600');
-                        msg.innerText = "✓ Titik lokasi berhasil didapatkan!";
-                        setTimeout(() => msg.classList.add('hidden'), 4000);
-                    },
-                    function(error) {
-                        // UI Error state
-                        icon.classList.remove('hidden');
-                        spinner.classList.add('hidden');
-                        msg.classList.remove('text-blue-500');
-                        msg.classList.add('text-red-500');
-                        if (error.code === error.PERMISSION_DENIED) {
-                            msg.innerText = "❌ Izin akses lokasi ditolak oleh browser/HP.";
-                        } else {
-                            msg.innerText = "❌ Gagal mendapatkan lokasi.";
-                        }
-                    },
-                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-                );
-            } else {
-                msg.classList.remove('hidden');
-                msg.classList.add('text-red-500');
-                msg.innerText = "❌ Browser Anda tidak mendukung fitur lokasi.";
+            if (!codeInput) {
+                resetVoucherUI();
+                return;
             }
+
+            // Tampilkan loading spinner bawaan
+            document.getElementById('btnVoucherSpinner').classList.remove('hidden');
+            document.getElementById('voucherFeedback').classList.add('hidden');
+            
+            // Beri jeda sejenak (0.8 detik) setelah pelanggan berhenti mengetik
+            voucherTimeout = setTimeout(() => {
+                verifyVoucher();
+            }, 800); 
         }
 
-        // Live Kalkulasi di form
+        function resetVoucherUI() {
+            const inputField = document.getElementById('voucherCodeInput');
+            const feedbackBox = document.getElementById('voucherFeedback');
+            document.getElementById('btnVoucherSpinner').classList.add('hidden');
+            inputField.classList.remove('border-green-500', 'border-red-500', 'bg-green-50', 'bg-red-50');
+            inputField.classList.add('border-slate-300');
+            feedbackBox.classList.add('hidden');
+            activeVoucher = null;
+            updateLivePrice();
+        }
+
+        function verifyVoucher() {
+            const codeInput = document.getElementById('voucherCodeInput').value.trim().toUpperCase();
+            const btnSpinner = document.getElementById('btnVoucherSpinner');
+            const feedbackBox = document.getElementById('voucherFeedback');
+            const feedbackIcon = document.getElementById('voucherFeedbackIcon');
+            const feedbackText = document.getElementById('voucherFeedbackText');
+            const inputField = document.getElementById('voucherCodeInput');
+
+            if (!codeInput) {
+                resetVoucherUI();
+                return;
+            }
+
+            const targetURL = `${voucherScriptURL}?code=${encodeURIComponent(codeInput)}`;
+
+            fetch(targetURL)
+                .then(res => res.json())
+                .then(data => {
+                    // Abaikan respons jika user masih mengetik huruf lain
+                    if (document.getElementById('voucherCodeInput').value.trim().toUpperCase() !== codeInput) return;
+
+                    btnSpinner.classList.add('hidden');
+                    feedbackBox.classList.remove('hidden', 'text-red-600', 'text-green-600');
+
+                    if (data.status === "success") {
+                        activeVoucher = {
+                            code: data.code,
+                            discount: data.discount,
+                            description: data.description
+                        };
+                        
+                        inputField.classList.remove('border-slate-300', 'border-red-500', 'bg-red-50');
+                        inputField.classList.add('border-green-500', 'bg-green-50');
+
+                        feedbackBox.classList.add('text-green-600');
+                        feedbackIcon.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i>`;
+                        feedbackText.innerText = `Voucher: ${data.description} (Diskon ${data.discount})`;
+                        
+                        updateLivePrice();
+                    } else {
+                        activeVoucher = null;
+                        
+                        inputField.classList.remove('border-slate-300', 'border-green-500', 'bg-green-50');
+                        inputField.classList.add('border-red-500', 'bg-red-50');
+
+                        feedbackBox.classList.add('text-red-600');
+                        feedbackIcon.innerHTML = `<i data-lucide="x-circle" class="w-4 h-4"></i>`;
+                        feedbackText.innerText = data.message || "Voucher tidak berlaku.";
+                        
+                        updateLivePrice();
+                    }
+                    lucide.createIcons();
+                })
+                .catch(err => {
+                    btnSpinner.classList.add('hidden');
+                    activeVoucher = null;
+                    updateLivePrice();
+                });
+        }
+
         function updateLivePrice() {
             const layananRaw = document.getElementById('layanan').value;
             const inputJumlah = document.getElementById('jumlah');
             const box = document.getElementById('livePriceBox');
+            const discountRow = document.getElementById('liveDiscountRow');
             
             if (!layananRaw) return box.classList.add('hidden');
             
@@ -510,14 +636,39 @@
             const waktu = document.querySelector('input[name="waktu"]:checked').value;
             
             let subtotal = isPromo ? 100000 : hargaBase * jml;
-            let biayaWaktu = waktu === "Express" ? (20000 * jml) : 0;
-            let total = subtotal + biayaWaktu;
+            let biayaWaktu = waktu === "Express" ? (15000 * jml) : 0;
+            let totalSementara = subtotal + biayaWaktu;
+
+            // Kalkulasi potongan diskon voucher jika ada voucher aktif
+            let diskonPotongan = 0;
+            if (activeVoucher) {
+                const discString = activeVoucher.discount; // cth: "20%" atau "15000"
+                if (discString.includes("%")) {
+                    const persen = parseFloat(discString.replace("%", "")) || 0;
+                    // PERBAIKAN: Diskon persen sekarang dihitung dari totalSementara (Subtotal + Express)
+                    diskonPotongan = Math.round(totalSementara * (persen / 100));
+                } else {
+                    diskonPotongan = parseInt(discString.replace(/[^0-9]/g, '')) || 0;
+                }
+                
+                if (diskonPotongan > totalSementara) diskonPotongan = totalSementara;
+
+                activeVoucher.valueRp = diskonPotongan;
+
+                document.getElementById('liveDiscountName').innerText = activeVoucher.code;
+                document.getElementById('liveDiscountVal').innerText = "- " + formatRupiah(diskonPotongan);
+                discountRow.classList.remove('hidden');
+            } else {
+                discountRow.classList.add('hidden');
+            }
+
+            let totalAkhir = totalSementara - diskonPotongan;
 
             document.getElementById('liveQty').innerText = jml;
             document.getElementById('liveSubtotal').innerText = formatRupiah(subtotal);
             document.getElementById('liveWaktuLabel').innerText = (waktu === "Express" ? "(Express)" : "(Reguler)");
             document.getElementById('liveWaktuBiaya').innerText = biayaWaktu > 0 ? "+ " + formatRupiah(biayaWaktu) : "Rp 0";
-            document.getElementById('liveTotal').innerText = formatRupiah(total);
+            document.getElementById('liveTotal').innerText = formatRupiah(totalAkhir);
             
             box.classList.remove('hidden');
         }
@@ -530,8 +681,11 @@
         function closeModal(modalId) {
             document.getElementById(modalId).classList.add('hidden');
             if(modalId === 'formModal') document.getElementById(modalId).style.display = '';
-            if(modalId === 'receiptModal') document.getElementById('orderForm').reset();
-            updateLivePrice(); // Reset live price box
+            if(modalId === 'receiptModal') {
+                document.getElementById('orderForm').reset();
+                resetVoucherUI();
+            }
+            updateLivePrice();
         }
 
         function formatDateDisplay(dtString) {
@@ -561,13 +715,38 @@
             const isPromo = namaLayanan.includes("Promo 3 Pasang");
 
             let subtotal = isPromo ? 100000 : (hargaDasar * jml);
-            let expressFee = waktu === "Express" ? (20000 * jml) : 0;
-            let total = subtotal + expressFee;
+            let expressFee = waktu === "Express" ? (15000 * jml) : 0;
+            let totalSementara = subtotal + expressFee;
+
+            let diskonRp = 0;
+            let voucherCodeStr = "-";
+
+            // PERBAIKAN: Kalkulasi ulang secara aman saat tombol diklik
+            if (activeVoucher) {
+                voucherCodeStr = activeVoucher.code;
+                const discString = activeVoucher.discount;
+                if (discString.includes("%")) {
+                    const persen = parseFloat(discString.replace("%", "")) || 0;
+                    diskonRp = Math.round(totalSementara * (persen / 100));
+                } else {
+                    diskonRp = parseInt(discString.replace(/[^0-9]/g, '')) || 0;
+                }
+                if (diskonRp > totalSementara) diskonRp = totalSementara;
+            }
+
+            let totalAkhir = totalSementara - diskonRp;
 
             let noHp = document.getElementById('nohp').value.replace(/\D/g,'');
             if (noHp.startsWith('0')) noHp = '62' + noHp.substring(1);
 
             const pickup = document.getElementById('jadwal').value;
+            const catatanAsli = document.getElementById('catatan').value || '-';
+
+            // KUNCI: Gabungkan info voucher ke kolom Catatan agar masuk ke sistem admin (Script Utama) Anda
+            let catatanGabungan = catatanAsli;
+            if (activeVoucher) {
+                catatanGabungan = `[VOUCHER: ${voucherCodeStr} (Potong ${formatRupiah(diskonRp)})] - ${catatanAsli}`;
+            }
 
             orderData = {
                 no: randomNo,
@@ -582,50 +761,39 @@
                 bayar: document.getElementById('pembayaran').value,
                 jadwal: formatDateDisplay(pickup),
                 estimasi: calculateEstimasi(pickup, waktu),
-                catatan: document.getElementById('catatan').value || '-',
+                catatan: catatanGabungan, // Di-append masuk kolom Spreadsheet lama
                 
                 hargasatuan_rp: isPromo ? "-" : "@" + formatRupiah(hargaDasar),
                 subtotal_rp: formatRupiah(subtotal),
-                waktulabel: waktu === "Express" ? "SPEED: EXPRESS (+20K/PSG)" : "SPEED: REGULER",
+                waktulabel: waktu === "Express" ? "SPEED: EXPRESS (+15K/PSG)" : "SPEED: REGULER",
                 waktubiaya_rp: expressFee > 0 ? formatRupiah(expressFee) : "Rp 0",
-                total_rp: formatRupiah(total)
+                total_rp: formatRupiah(totalAkhir),
+                
+                // Tambahan khusus untuk dipakai di form kirim wa
+                voucher_code: voucherCodeStr,
+                voucher_potongan_rp: formatRupiah(diskonRp)
             };
 
             closeModal('formModal');
             document.getElementById('loadingModal').classList.remove('hidden');
             document.getElementById('loadingModal').style.display = 'flex';
-            document.getElementById('loadingText').innerText = "Menyimpan ke Master Data...";
+            document.getElementById('loadingText').innerText = "Menyiapkan Pesanan Anda...";
 
-            // Kirim data ke Google Sheets (Berjalan di background)
-            if (scriptURL !== 'YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE') {
-                fetch(scriptURL, {
-                    method: 'POST',
-                    mode: 'no-cors', // Penting untuk mencegah error CORS saat upload dari browser
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(orderData)
-                })
-                .then(response => {
-                    showToast("✅ Berhasil disimpan ke Master Data", "success");
-                })
-                .catch(error => {
-                    console.error('Error!', error.message);
-                    showToast("⚠️ Gagal menyimpan ke Spreadsheet", "error");
-                });
-            } else {
-                showToast("⚠️ Master Data belum dikonfigurasi (URL Kosong)", "error");
-            }
+            // POST Menggunakan Script URL Utama Anda (Script Lama)
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderData)
+            }).catch(error => console.error('Error!', error.message));
 
-            // Tetap langsung tampilkan struk (tanpa menunggu fetch selesai agar UX tetap cepat)
             setTimeout(() => {
                 document.getElementById('loadingModal').classList.add('hidden');
                 document.getElementById('loadingModal').style.display = '';
-                document.getElementById('loadingText').innerText = "Memproses..."; // Reset text
 
                 const now = new Date();
                 
-                // Isi DOM Struk Kasir
+                // DOM Render Struk Thermal
                 document.getElementById('r-noorder').innerText = orderData.no;
                 document.getElementById('r-tglorder').innerText = now.toLocaleDateString('id-ID', {day:'2-digit', month:'2-digit', year:'2-digit'});
                 document.getElementById('r-jamorder').innerText = now.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
@@ -642,6 +810,17 @@
                 document.getElementById('r-subtotal').innerText = orderData.subtotal_rp;
                 document.getElementById('r-waktulabel').innerText = orderData.waktulabel;
                 document.getElementById('r-waktubiaya').innerText = orderData.waktubiaya_rp;
+
+                // Tampilkan Voucher di Struk Kasir jika ada
+                const rDiscountRow = document.getElementById('r-discountRow');
+                if (activeVoucher) {
+                    document.getElementById('r-discountCode').innerText = voucherCodeStr;
+                    document.getElementById('r-discountVal').innerText = "- " + formatRupiah(diskonRp);
+                    rDiscountRow.classList.remove('hidden');
+                } else {
+                    rDiscountRow.classList.add('hidden');
+                }
+
                 document.getElementById('r-total').innerText = orderData.total_rp;
                 document.getElementById('r-pembayaran').innerText = orderData.bayar;
                 
@@ -664,30 +843,31 @@
         }
 
         function sendToWhatsApp() {
-            const txt = `Halo kak *${orderData.nama}*, ini rincian pesanan cuci sepatumu ya:
+            const txt = `Halo Min, saya mau order cuci sepatu. Berikut detail pesanan saya ya:
 
-🧾 *NO. STRUK: ${orderData.no}*
+🧾 *NO. ORDER: ${orderData.no}*
 
 *DETAIL PESANAN:*
 • Layanan: ${orderData.layanan}
 • Sepatu: ${orderData.merk} (${orderData.qty} Pasang)
 • Pengerjaan: ${orderData.waktu}
-• Estimasi Selesai: ${orderData.estimasi}
 
-*TOTAL BIAYA: ${orderData.total_rp}*
-_(Metode: ${orderData.bayar})_
+${activeVoucher ? `*Voucher Digunakan:* ${orderData.voucher_code} (Potongan ${orderData.voucher_potongan_rp})\n` : ''}*TOTAL BIAYA AKHIR: ${orderData.total_rp}*
+_(Rencana Bayar: ${orderData.bayar})_
 
-*JADWAL PICKUP:*
+*MOHON DIJEMPUT PADA:*
 🗓 ${orderData.jadwal}
 
-*ALAMAT:*
-${orderData.alamat}
+*ALAMAT SAYA:*
+Nama: ${orderData.nama}
+No HP: ${orderData.nohp}
+Detail: ${orderData.alamat}
 Map: ${orderData.lokasi}
 Catatan: ${orderData.catatan}
 
-Tim kami akan segera meluncur ke lokasimu sesuai jadwal. Terima kasih! ✨👟`;
+Mohon konfirmasinya ya min, terima kasih! ✨👟`;
 
-            window.open(`https://wa.me/${orderData.nohp}?text=${encodeURIComponent(txt)}`, '_blank');
+            window.open(`https://wa.me/${adminWhatsAppNumber}?text=${encodeURIComponent(txt)}`, '_blank');
         }
     </script>
 </body>
