@@ -70,6 +70,12 @@
 </head>
 <body class="flex items-center justify-center min-h-[100dvh]">
 
+    <!-- Toast Notification for Upload Info -->
+    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 px-5 py-3 rounded-xl shadow-2xl z-[100] transition-all duration-300 opacity-0 translate-y-[-20px] pointer-events-none flex items-center gap-2 font-medium text-sm w-max max-w-[90vw]">
+        <i data-lucide="info" class="w-5 h-5" id="toast-icon"></i>
+        <span id="toast-msg">Notifikasi</span>
+    </div>
+
     <div class="w-full max-w-md bg-slate-50 min-h-[100dvh] relative shadow-2xl overflow-hidden flex flex-col">
         <!-- Header -->
         <div class="bg-slate-900 text-white rounded-b-[2rem] p-10 text-center shadow-md relative z-10">
@@ -247,7 +253,10 @@
     </div>
 
     <div id="loadingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden items-center justify-center">
-        <div class="flex flex-col items-center"><div class="spinner mb-4"></div><p class="text-white font-medium tracking-wide">Memproses...</p></div>
+        <div class="flex flex-col items-center">
+            <div class="spinner mb-4"></div>
+            <p id="loadingText" class="text-white font-medium tracking-wide">Memproses...</p>
+        </div>
     </div>
 
     <!-- 3. STRUK (RECEIPT) MODAL - FLEXBOX LAYOUT (Anti Overlap) -->
@@ -390,9 +399,40 @@
     <script>
         lucide.createIcons();
 
+        // ⚠️ PENTING: Ganti URL di bawah dengan URL Web App Google Apps Script Anda ⚠️
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyiqNnAQwSkRIp3Daa1DoBO5Ap73raP2Wp-OPayycWmHkTXVA4xS9ZYwOKYDGbNo8GP/exec';
+
         let orderData = {};
 
         function formatRupiah(angka) { return "Rp " + angka.toLocaleString('id-ID'); }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-msg');
+            const iconEl = document.getElementById('toast-icon');
+            
+            msgEl.innerText = message;
+            
+            if(type === 'success') {
+                toast.className = "fixed top-5 left-1/2 -translate-x-1/2 bg-green-600 text-white px-5 py-3 rounded-xl shadow-2xl z-[100] transition-all duration-300 flex items-center gap-2 font-medium text-sm w-max max-w-[90vw]";
+                iconEl.setAttribute('data-lucide', 'check-circle');
+            } else {
+                toast.className = "fixed top-5 left-1/2 -translate-x-1/2 bg-red-600 text-white px-5 py-3 rounded-xl shadow-2xl z-[100] transition-all duration-300 flex items-center gap-2 font-medium text-sm w-max max-w-[90vw]";
+                iconEl.setAttribute('data-lucide', 'alert-circle');
+            }
+            
+            lucide.createIcons();
+            
+            // Animasi muncul
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', 'translate-y-[-20px]');
+            }, 10);
+            
+            // Animasi hilang
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-[-20px]');
+            }, 4000);
+        }
 
         function getLocation() {
             const lokasiInput = document.getElementById('lokasi');
@@ -411,8 +451,7 @@
                 navigator.geolocation.getCurrentPosition(
                     function(position) {
                         const lat = position.coords.latitude;
-       
-                 const lng = position.coords.longitude;
+                        const lng = position.coords.longitude;
                         lokasiInput.value = `https://www.google.com/maps?q=${lat},${lng}`;
                         
                         // UI Success state
@@ -555,11 +594,34 @@
             closeModal('formModal');
             document.getElementById('loadingModal').classList.remove('hidden');
             document.getElementById('loadingModal').style.display = 'flex';
+            document.getElementById('loadingText').innerText = "Menyimpan ke Master Data...";
 
-            // Simulasi Proses Loading -> Tampil Struk
+            // Kirim data ke Google Sheets (Berjalan di background)
+            if (scriptURL !== 'YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE') {
+                fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Penting untuk mencegah error CORS saat upload dari browser
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(orderData)
+                })
+                .then(response => {
+                    showToast("✅ Berhasil disimpan ke Master Data", "success");
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    showToast("⚠️ Gagal menyimpan ke Spreadsheet", "error");
+                });
+            } else {
+                showToast("⚠️ Master Data belum dikonfigurasi (URL Kosong)", "error");
+            }
+
+            // Tetap langsung tampilkan struk (tanpa menunggu fetch selesai agar UX tetap cepat)
             setTimeout(() => {
                 document.getElementById('loadingModal').classList.add('hidden');
                 document.getElementById('loadingModal').style.display = '';
+                document.getElementById('loadingText').innerText = "Memproses..."; // Reset text
 
                 const now = new Date();
                 
@@ -589,7 +651,7 @@
 
                 document.getElementById('receiptModal').classList.remove('hidden');
                 document.getElementById('receiptModal').style.display = 'flex';
-            }, 1000);
+            }, 1200);
         }
 
         function downloadReceipt() {
