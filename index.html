@@ -3,8 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pesan Cuci Sepatu - CUCI SPATU Serang</title>
+    <title>HOMESERVICE - CUCI SPATU Serang</title>
     
+    <!-- META TAGS UNTUK PREVIEW LINK WHATSAPP / SOSMED -->
+    <meta name="title" content="CUCI SPATU Serang - Homeservice">
+    <meta name="description" content="Solusi Cuci Sepatu Homeservice Serang Banten. Pesan sekarang, biar kami yang menjemput dan merawat sepatu kesayanganmu.">
+    
+    <!-- Open Graph / WhatsApp / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://infocucispatu.netlify.app">
+    <meta property="og:title" content="CUCI SPATU Serang - Cuci Sepatu Homeservice">
+    <meta property="og:description" content="Pesan layanan cuci sepatu. Kami jemput, kami bersihkan, dan kami antar kembali sepatu kesayanganmu!">
+    <!-- Ganti URL gambar di bawah ini dengan link logo/banner Anda yang sudah di-hosting -->
+    <meta property="og:image" content="https://images.unsplash.com/photo-1595341888016-a392ef81b7de?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+    <meta property="og:image:width" content="800">
+    <meta property="og:image:height" content="600">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -75,7 +89,6 @@
         <span id="toast-msg">Notifikasi</span>
     </div>
 
-    <!-- MAIN HOMEPAGE CARD -->
     <div class="w-full max-w-md bg-slate-50 min-h-[100dvh] relative shadow-2xl overflow-hidden flex flex-col">
         <!-- Header -->
         <div class="bg-slate-900 text-white rounded-b-[2rem] p-10 text-center shadow-md relative z-10">
@@ -109,7 +122,6 @@
         </div>
     </div>
 
-    <!-- 1. FORM ORDER MODAL -->
     <div id="formModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 hidden flex-col justify-end">
         <div class="bg-white w-full max-w-md mx-auto h-[95dvh] rounded-t-[2rem] shadow-2xl flex flex-col modal-enter relative">
             
@@ -132,16 +144,16 @@
                         </div>
                         <div>
                             <label class="text-sm font-semibold text-slate-700 block mb-1">No. HP/WhatsApp Anda</label>
-                            <input type="tel" id="nohp" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500" placeholder="08 berapa nih...">
+                            <input type="tel" id="nohp" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500" placeholder="08...">
                         </div>
                         <div>
                             <label class="text-sm font-semibold text-slate-700 block mb-1">Alamat Penjemputan Lengkap</label>
                             <textarea id="alamat" required rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500" placeholder="Detail jalan, nomor rumah, RT/RW"></textarea>
                         </div>
                         <div>
-                            <label class="text-sm font-semibold text-slate-700 block mb-1">Link Gmaps / Titik Penjemputan</label>
+                            <label class="text-sm font-semibold text-slate-700 block mb-1">Link Gmaps / Titik Lokasi</label>
                             <div class="flex gap-2">
-                                <input type="text" id="lokasi" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500" placeholder="Tempel link / ketuk ikon disamping">
+                                <input type="text" id="lokasi" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500" placeholder="Tempel link / ketuk ikon 👉">
                                 <button type="button" onclick="getLocation()" class="bg-blue-100 text-blue-600 px-4 py-3 rounded-xl hover:bg-blue-200 active:scale-95 transition flex items-center justify-center border border-blue-200" title="Ambil Titik Lokasi Saat Ini">
                                     <i data-lucide="map-pin" class="w-5 h-5" id="icon-lokasi"></i>
                                     <div class="spinner-blue hidden" id="spinner-lokasi"></div>
@@ -154,59 +166,69 @@
                     <hr class="border-slate-100">
 
                     <div class="space-y-4 mt-6">
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Layanan & Spesifikasi</h4>
+                        <div class="flex justify-between items-end mb-2">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Layanan & Spesifikasi</h4>
+                            <button type="button" onclick="addService()" class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg hover:bg-blue-100 flex items-center gap-1 transition">
+                                <i data-lucide="plus" class="w-3.5 h-3.5"></i> Tambah Layanan
+                            </button>
+                        </div>
                         
-                        <div>
-                            <label class="text-sm font-semibold text-slate-700 block mb-1">Pilih Layanan</label>
-                            <select id="layanan" onchange="updateLivePrice()" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500">
-                                <option value="" disabled selected>Pilih layanan sesuai pricelist...</option>
-                                <optgroup label="Paket Promo">
-                                    <option value="Promo 3 Pasang Deep Clean|100000">Promo 3 Pasang Deep Clean (Rp 100k)</option>
-                                </optgroup>
-                                <optgroup label="Deep Clean">
-                                    <option value="Deep Clean (35k)|35000">Deep Clean - Standard (Rp 35k/psg)</option>
-                                    <option value="Deep Clean (40k)|40000">Deep Clean - Medium (Rp 40k/psg)</option>
-                                    <option value="Deep Clean (60k)|60000">Deep Clean - Premium (Rp 60k/psg)</option>
-                                </optgroup>
-                                <optgroup label="Whitening (Light Canvas/Mesh/Knit)">
-                                    <option value="Whitening (50k)|50000">Whitening - Standard (Rp 50k/psg)</option>
-                                    <option value="Whitening (60k)|60000">Whitening - Premium (Rp 60k/psg)</option>
-                                </optgroup>
-                                <optgroup label="Special Care">
-                                    <option value="Leather Care|50000">Leather Care (Rp 50k/psg)</option>
-                                    <option value="Suede Care (70k)|70000">Suede Care - Standard (Rp 70k/psg)</option>
-                                    <option value="Suede Care (80k)|80000">Suede Care - Premium (Rp 80k/psg)</option>
-                                </optgroup>
-                                <optgroup label="Others">
-                                    <option value="Pretty Pair (Flat/Heels)|30000">Pretty Pair / Heels (Rp 30k/psg)</option>
-                                    <option value="Kids Shoes (Size 19-35)|30000">Kids Shoes Size 19-35 (Rp 30k/psg)</option>
-                                </optgroup>
-                            </select>
+                        <!-- WADAH LAYANAN DINAMIS -->
+                        <div id="service-list" class="space-y-4">
+                            <!-- Item Layanan 1 (Default) -->
+                            <div class="service-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm relative">
+                                <button type="button" onclick="removeService(this)" class="btn-remove hidden absolute -top-2 -right-2 bg-red-100 text-red-600 p-1.5 rounded-full shadow hover:bg-red-200 transition">
+                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                </button>
+                                
+                                <div class="mb-3">
+                                    <label class="text-xs font-semibold text-slate-700 block mb-1">Pilih Layanan</label>
+                                    <select class="input-layanan w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-blue-500" onchange="updateLivePrice()" required>
+                                        <option value="" disabled selected>Pilih layanan...</option>
+                                        <optgroup label="Cleaning Services">
+                                            <option value="Fast Clean|30000">Fast Clean (Rp 30k/psg)</option>
+                                            <option value="Deep Clean|40000">Deep Clean (Rp 40k/psg)</option>
+                                            <option value="Hard Clean|60000">Hard Clean (Rp 60k/psg)</option>
+                                        </optgroup>
+                                        <optgroup label="Special Care">
+                                            <option value="Suede Care|50000">Suede Care (Rp 50k/psg)</option>
+                                            <option value="White Shoes|50000">White Shoes (Rp 50k/psg)</option>
+                                            <option value="Leather Care|50000">Leather Care (Rp 50k/psg)</option>
+                                        </optgroup>
+                                        <optgroup label="Special Treatment">
+                                            <option value="Unyellowing (Incld. Deep Clean)|100000">Unyellowing + Deep Clean (Rp 100k/psg)</option>
+                                        </optgroup>
+                                        <optgroup label="Others">
+                                            <option value="Kids Shoes|30000">Kids Shoes (Rp 30k/psg)</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="text-xs font-semibold text-slate-700 block mb-1">Merk & Warna</label>
+                                        <input type="text" class="input-merk w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-blue-500 uppercase" required placeholder="cth: VANS HITAM">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-semibold text-slate-700 block mb-1">Jml (Pasang)</label>
+                                        <input type="number" class="input-qty w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-blue-500" oninput="updateLivePrice()" required min="1" placeholder="0">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="text-sm font-semibold text-slate-700 block mb-1">Merk & Warna Sepatu</label>
-                                <input type="text" id="merk" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500 uppercase" placeholder="cth: VANS HITAM">
-                            </div>
-                            <div>
-                                <label class="text-sm font-semibold text-slate-700 block mb-1">Jumlah (Pasang)</label>
-                                <input type="number" id="jumlah" oninput="updateLivePrice()" required min="1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-blue-500" placeholder="0">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="text-sm font-semibold text-slate-700 block mb-2">Kecepatan Pengerjaan</label>
+                        <div class="mt-4">
+                            <label class="text-sm font-semibold text-slate-700 block mb-2">Kecepatan Pengerjaan (Berlaku Semua Sepatu)</label>
                             <div class="grid grid-cols-2 gap-3">
                                 <label class="relative">
                                     <input type="radio" name="waktu" value="Reguler" onchange="updateLivePrice()" class="peer sr-only" checked>
                                     <div class="p-3 rounded-xl border border-slate-200 cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50 text-center">
-                                        <div class="font-bold text-sm">Reguler</div><div class="text-xs text-slate-500">Selesai 3 Hari</div>
+                                        <div class="font-bold text-sm">Reguler</div><div id="labelRegulerTime" class="text-xs text-slate-500">Selesai 3 Hari</div>
                                     </div>
                                 </label>
                                 <label class="relative">
-                                    <input type="radio" name="waktu" value="Express" onchange="updateLivePrice()" class="peer sr-only">
-                                    <div class="p-3 rounded-xl border border-slate-200 cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50 text-center">
+                                    <input type="radio" name="waktu" id="radioExpress" value="Express" onchange="updateLivePrice()" class="peer sr-only">
+                                    <div class="p-3 rounded-xl border border-slate-200 cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50 text-center peer-disabled:bg-slate-100 peer-disabled:cursor-not-allowed peer-disabled:opacity-40">
                                         <div class="font-bold text-sm">Express</div><div class="text-xs text-blue-600">+15k/psg (24jam)</div>
                                     </div>
                                 </label>
@@ -227,17 +249,18 @@
                             </div>
                         </div>
 
-                        <!-- FITUR VOUCHER (Otomatis Cek) -->
                         <div class="bg-slate-100 border border-slate-200 rounded-xl p-4">
                             <label class="text-sm font-bold text-slate-700 block mb-1">Punya Kode Voucher?</label>
                             <div class="relative">
-                                <input type="text" id="voucherCodeInput" oninput="debounceVerifyVoucher()" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm uppercase font-semibold pr-10" placeholder="Ketik kode (Otomatis dicek)">
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                <!-- Pengecekan otomatis saat user mengetik -->
+                                <input type="text" id="voucherCodeInput" oninput="debounceVoucherCheck()" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 pr-10 text-sm uppercase font-semibold" placeholder="CONTOH: PROMO77">
+                                <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center">
+                                    <!-- Spinner loading otomatis muncul saat diketik -->
                                     <div id="btnVoucherSpinner" class="spinner-blue hidden"></div>
                                 </div>
                             </div>
                             <!-- Feedback Status Voucher -->
-                            <div id="voucherFeedback" class="mt-2 text-xs font-medium hidden items-center gap-1 transition-all">
+                            <div id="voucherFeedback" class="mt-2 text-xs font-medium hidden items-center gap-1">
                                 <span id="voucherFeedbackIcon"></span>
                                 <span id="voucherFeedbackText"></span>
                             </div>
@@ -249,7 +272,6 @@
                         </div>
                     </div>
 
-                    <!-- LIVE ESTIMASI HARGA -->
                     <div id="livePriceBox" class="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4 hidden space-y-1.5">
                         <div class="flex justify-between text-sm text-slate-600">
                             <span>Subtotal Layanan (<span id="liveQty">0</span> psg)</span>
@@ -289,7 +311,6 @@
         </div>
     </div>
 
-    <!-- 3. STRUK (RECEIPT) MODAL -->
     <div id="receiptModal" class="fixed inset-0 bg-slate-900 z-50 hidden flex-col">
         <!-- Navbar -->
         <div class="flex-none bg-slate-800 border-b border-slate-700 p-4 text-center">
@@ -342,16 +363,9 @@
                     <!-- Item Belanjaan (Ala Kasir) -->
                     <div class="font-bold mb-2">RINCIAN PESANAN:</div>
                     
-                    <!-- Service Line -->
-                    <div class="flex justify-between items-start mb-1 uppercase">
-                        <div class="flex-1 pr-2">
-                            <span id="r-layanan" class="block font-bold break-words"></span>
-                            <span id="r-merk" class="text-[10px]"></span>
-                        </div>
-                        <div class="text-right whitespace-nowrap">
-                            <span id="r-qty" class="block"></span>
-                            <span id="r-hargasatuan" class="text-[10px]"></span>
-                        </div>
+                    <!-- Container Rincian Layanan Dinamis -->
+                    <div id="r-items-container" class="space-y-2 mb-2">
+                        <!-- Data Layanan Akan di Inject Kesini -->
                     </div>
 
                     <div class="dotted-line"></div>
@@ -366,7 +380,7 @@
                         <span id="r-waktubiaya"></span>
                     </div>
 
-                    <!-- BARIS BARU: Diskon Voucher di Struk -->
+                    <!-- Diskon Voucher di Struk -->
                     <div id="r-discountRow" class="flex justify-between mb-2 text-[10px] uppercase font-bold hidden">
                         <span>DISKON VOUCHER (<span id="r-discountCode"></span>)</span>
                         <span id="r-discountVal"></span>
@@ -443,56 +457,9 @@
         const adminWhatsAppNumber = "628121873266"; 
 
         let orderData = {};
-        
-        // State Voucher
         let activeVoucher = null;
-
-        function getLocation() {
-            const icon = document.getElementById('icon-lokasi');
-            const spinner = document.getElementById('spinner-lokasi');
-            const inputLokasi = document.getElementById('lokasi');
-            const msgLokasi = document.getElementById('lokasi-msg');
-
-            if (navigator.geolocation) {
-                // Tampilkan loading spinner
-                icon.classList.add('hidden');
-                spinner.classList.remove('hidden');
-                msgLokasi.classList.add('hidden');
-
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        // Jika berhasil didapatkan
-                        const lat = position.coords.latitude;
-                        const lng = position.coords.longitude;
-                        inputLokasi.value = `https://maps.google.com/?q=${lat},${lng}`;
-                        
-                        // Kembalikan ikon
-                        spinner.classList.add('hidden');
-                        icon.classList.remove('hidden');
-                        
-                        // Tampilkan pesan sukses
-                        msgLokasi.innerText = "✓ Titik lokasi berhasil didapatkan";
-                        msgLokasi.className = "text-xs mt-1 font-medium text-green-600 block";
-                    },
-                    (error) => {
-                        // Jika gagal
-                        spinner.classList.add('hidden');
-                        icon.classList.remove('hidden');
-                        
-                        let errMsg = "Gagal mendapatkan lokasi.";
-                        if (error.code === 1) errMsg = "Akses lokasi ditolak. Izinkan GPS di HP/Browser Anda.";
-                        else if (error.code === 2) errMsg = "Sinyal lokasi tidak tersedia.";
-                        else if (error.code === 3) errMsg = "Waktu pencarian lokasi habis.";
-
-                        msgLokasi.innerText = "❌ " + errMsg;
-                        msgLokasi.className = "text-xs mt-1 font-medium text-red-500 block";
-                    },
-                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-                );
-            } else {
-                showToast("GPS tidak didukung di browser ini", "error");
-            }
-        }
+        let typingTimer;
+        const typingInterval = 800; // waktu tunggu ketik sblm ngecek otomatis (ms)
 
         function formatRupiah(angka) { return "Rp " + angka.toLocaleString('id-ID'); }
 
@@ -517,36 +484,144 @@
             setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-[-20px]'); }, 4000);
         }
 
-        // FUNGSI VERIFIKASI VOUCHER OTOMATIS
-        let voucherTimeout = null;
-        function debounceVerifyVoucher() {
-            clearTimeout(voucherTimeout);
-            const codeInput = document.getElementById('voucherCodeInput').value.trim();
+        // --- FUNGSI MULTI LAYANAN ---
+        function addService() {
+            const container = document.getElementById('service-list');
+            const newIndex = container.children.length + 1;
             
-            if (!codeInput) {
-                resetVoucherUI();
-                return;
-            }
+            const serviceHTML = `
+                <div class="service-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm relative mt-4 modal-enter">
+                    <button type="button" onclick="removeService(this)" class="btn-remove absolute -top-2 -right-2 bg-red-100 text-red-600 p-1.5 rounded-full shadow hover:bg-red-200 transition">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                    
+                    <div class="mb-3">
+                        <label class="text-xs font-semibold text-slate-700 block mb-1">Pilih Layanan ${newIndex}</label>
+                        <select class="input-layanan w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-blue-500" onchange="updateLivePrice()" required>
+                            <option value="" disabled selected>Pilih layanan...</option>
+                            <optgroup label="Cleaning Services">
+                                <option value="Fast Clean|30000">Fast Clean (Rp 30k/psg)</option>
+                                <option value="Deep Clean|40000">Deep Clean (Rp 40k/psg)</option>
+                                <option value="Hard Clean|60000">Hard Clean (Rp 60k/psg)</option>
+                            </optgroup>
+                            <optgroup label="Special Care">
+                                <option value="Suede Care|50000">Suede Care (Rp 50k/psg)</option>
+                                <option value="White Shoes|50000">White Shoes (Rp 50k/psg)</option>
+                                <option value="Leather Care|50000">Leather Care (Rp 50k/psg)</option>
+                            </optgroup>
+                            <optgroup label="Special Treatment">
+                                <option value="Unyellowing (Incld. Deep Clean)|100000">Unyellowing + Deep Clean (Rp 100k/psg)</option>
+                            </optgroup>
+                            <optgroup label="Others">
+                                <option value="Kids Shoes|30000">Kids Shoes (Rp 30k/psg)</option>
+                            </optgroup>
+                        </select>
+                    </div>
 
-            // Tampilkan loading spinner bawaan
-            document.getElementById('btnVoucherSpinner').classList.remove('hidden');
-            document.getElementById('voucherFeedback').classList.add('hidden');
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="text-xs font-semibold text-slate-700 block mb-1">Merk & Warna</label>
+                            <input type="text" class="input-merk w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-blue-500 uppercase" required placeholder="cth: VANS HITAM">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-slate-700 block mb-1">Jml (Pasang)</label>
+                            <input type="number" class="input-qty w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-blue-500" oninput="updateLivePrice()" required min="1" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+            `;
             
-            // Beri jeda sejenak (0.8 detik) setelah pelanggan berhenti mengetik
-            voucherTimeout = setTimeout(() => {
-                verifyVoucher();
-            }, 800); 
+            container.insertAdjacentHTML('beforeend', serviceHTML);
+            lucide.createIcons();
+            
+            // Tampilkan tombol hapus di item pertama jika lebih dari 1 item
+            if(container.children.length > 1) {
+                container.children[0].querySelector('.btn-remove').classList.remove('hidden');
+            }
         }
 
-        function resetVoucherUI() {
-            const inputField = document.getElementById('voucherCodeInput');
+        function removeService(btn) {
+            const item = btn.closest('.service-item');
+            const container = document.getElementById('service-list');
+            
+            item.remove();
+            updateLivePrice(); // Update harga setelah dihapus
+            
+            // Sembunyikan tombol hapus jika tersisa 1 item
+            if(container.children.length === 1) {
+                container.children[0].querySelector('.btn-remove').classList.add('hidden');
+            }
+        }
+        // --- END FUNGSI MULTI LAYANAN ---
+
+        function getLocation() {
+            const lokasiInput = document.getElementById('lokasi');
+            const icon = document.getElementById('icon-lokasi');
+            const spinner = document.getElementById('spinner-lokasi');
+            const msg = document.getElementById('lokasi-msg');
+
+            if (navigator.geolocation) {
+                icon.classList.add('hidden');
+                spinner.classList.remove('hidden');
+                msg.classList.remove('hidden', 'text-red-500', 'text-green-600');
+                msg.classList.add('text-blue-500');
+                msg.innerText = "Mencari titik lokasi...";
+
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        lokasiInput.value = `https://www.google.com/maps?q=${lat},${lng}`;
+                        
+                        icon.classList.remove('hidden');
+                        spinner.classList.add('hidden');
+                        msg.classList.remove('text-blue-500');
+                        msg.classList.add('text-green-600');
+                        msg.innerText = "✓ Titik lokasi berhasil didapatkan!";
+                        setTimeout(() => msg.classList.add('hidden'), 4000);
+                    },
+                    function(error) {
+                        icon.classList.remove('hidden');
+                        spinner.classList.add('hidden');
+                        msg.classList.remove('text-blue-500');
+                        msg.classList.add('text-red-500');
+                        if (error.code === error.PERMISSION_DENIED) {
+                            msg.innerText = "❌ Izin akses lokasi ditolak oleh HP Anda.";
+                        } else {
+                            msg.innerText = "❌ Gagal mendapatkan lokasi.";
+                        }
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            } else {
+                msg.classList.remove('hidden');
+                msg.classList.add('text-red-500');
+                msg.innerText = "❌ Browser/HP Anda tidak mendukung fitur lokasi.";
+            }
+        }
+
+        function debounceVoucherCheck() {
+            clearTimeout(typingTimer);
+            const codeInput = document.getElementById('voucherCodeInput').value.trim();
+            const btnSpinner = document.getElementById('btnVoucherSpinner');
             const feedbackBox = document.getElementById('voucherFeedback');
-            document.getElementById('btnVoucherSpinner').classList.add('hidden');
+            const inputField = document.getElementById('voucherCodeInput');
+
+            // Reset UI tiap kali diketik ulang
             inputField.classList.remove('border-green-500', 'border-red-500', 'bg-green-50', 'bg-red-50');
             inputField.classList.add('border-slate-300');
             feedbackBox.classList.add('hidden');
+            
+            // Hapus voucher aktif sebelumnya (jika ada) saat user mengubah ketikan
             activeVoucher = null;
             updateLivePrice();
+
+            if (codeInput) {
+                btnSpinner.classList.remove('hidden');
+                typingTimer = setTimeout(verifyVoucher, typingInterval);
+            } else {
+                btnSpinner.classList.add('hidden');
+            }
         }
 
         function verifyVoucher() {
@@ -557,8 +632,18 @@
             const feedbackText = document.getElementById('voucherFeedbackText');
             const inputField = document.getElementById('voucherCodeInput');
 
-            if (!codeInput) {
-                resetVoucherUI();
+            // Cek apakah minimal ada 1 layanan yang dipilih dengan qty > 0
+            const firstLayanan = document.querySelector('.input-layanan').value;
+            const firstQty = parseInt(document.querySelector('.input-qty').value) || 0;
+            
+            if (!firstLayanan || firstQty < 1) {
+                btnSpinner.classList.add('hidden');
+                inputField.classList.add('border-red-500', 'bg-red-50');
+                feedbackBox.classList.remove('hidden', 'text-green-600');
+                feedbackBox.classList.add('text-red-600');
+                feedbackIcon.innerHTML = `<i data-lucide="alert-circle" class="w-4 h-4"></i>`;
+                feedbackText.innerText = "Isi minimal 1 layanan & jumlah sepatu terlebih dahulu!";
+                lucide.createIcons();
                 return;
             }
 
@@ -567,9 +652,6 @@
             fetch(targetURL)
                 .then(res => res.json())
                 .then(data => {
-                    // Abaikan respons jika user masih mengetik huruf lain
-                    if (document.getElementById('voucherCodeInput').value.trim().toUpperCase() !== codeInput) return;
-
                     btnSpinner.classList.add('hidden');
                     feedbackBox.classList.remove('hidden', 'text-red-600', 'text-green-600');
 
@@ -585,7 +667,7 @@
 
                         feedbackBox.classList.add('text-green-600');
                         feedbackIcon.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i>`;
-                        feedbackText.innerText = `Voucher: ${data.description} (Diskon ${data.discount})`;
+                        feedbackText.innerText = `Voucher terpasang: ${data.description} (Diskon ${data.discount})`;
                         
                         updateLivePrice();
                     } else {
@@ -605,54 +687,90 @@
                 .catch(err => {
                     btnSpinner.classList.add('hidden');
                     activeVoucher = null;
+                    
+                    feedbackBox.classList.remove('hidden', 'text-green-600');
+                    feedbackBox.classList.add('text-red-600');
+                    feedbackIcon.innerHTML = `<i data-lucide="wifi-off" class="w-4 h-4"></i>`;
+                    feedbackText.innerText = "Koneksi gagal atau URL Script salah!";
+                    lucide.createIcons();
+                    
                     updateLivePrice();
                 });
         }
 
         function updateLivePrice() {
-            const layananRaw = document.getElementById('layanan').value;
-            const inputJumlah = document.getElementById('jumlah');
             const box = document.getElementById('livePriceBox');
             const discountRow = document.getElementById('liveDiscountRow');
+            const labelReguler = document.getElementById('labelRegulerTime');
+            const radioExpress = document.getElementById('radioExpress');
             
-            if (!layananRaw) return box.classList.add('hidden');
+            const serviceItems = document.querySelectorAll('.service-item');
             
-            const layananArr = layananRaw.split("|");
-            const isPromo = layananArr[0].includes("Promo 3 Pasang");
-            const hargaBase = parseInt(layananArr[1]);
+            let totalSubtotal = 0;
+            let totalQty = 0;
+            let isUnyellowingExist = false;
+            let isValid = false; // Flag untuk ngecek apa form udah diisi bener
 
-            if (isPromo) {
-                inputJumlah.value = 3;
-                inputJumlah.setAttribute("readonly", true);
-                inputJumlah.classList.add("bg-gray-200");
+            serviceItems.forEach(item => {
+                const layananRaw = item.querySelector('.input-layanan').value;
+                const inputJumlah = item.querySelector('.input-qty');
+                
+                if (layananRaw) {
+                    isValid = true;
+                    const layananArr = layananRaw.split("|");
+                    const namaLayanan = layananArr[0];
+                    const hargaBase = parseInt(layananArr[1]);
+                    const isPromo = namaLayanan.includes("Promo 3 Pasang");
+                    
+                    if (namaLayanan.includes("Unyellowing")) isUnyellowingExist = true;
+
+                    if (isPromo) {
+                        inputJumlah.value = 3;
+                        inputJumlah.setAttribute("readonly", true);
+                        inputJumlah.classList.add("bg-gray-200");
+                    } else {
+                        inputJumlah.removeAttribute("readonly");
+                        inputJumlah.classList.remove("bg-gray-200");
+                    }
+
+                    let jml = parseInt(inputJumlah.value) || 0;
+                    if (jml > 0) {
+                        totalQty += jml;
+                        totalSubtotal += isPromo ? 100000 : (hargaBase * jml);
+                    }
+                }
+            });
+            
+            if (!isValid || totalQty < 1) return box.classList.add('hidden');
+
+            // KUNCI: Kunci layanan Express jika ada Unyellowing
+            if (isUnyellowingExist) {
+                if (labelReguler) labelReguler.innerText = "Selesai 9 Hari";
+                if (radioExpress) {
+                    radioExpress.disabled = true;
+                    document.querySelector('input[name="waktu"][value="Reguler"]').checked = true;
+                }
             } else {
-                inputJumlah.removeAttribute("readonly");
-                inputJumlah.classList.remove("bg-gray-200");
+                if (labelReguler) labelReguler.innerText = "Selesai 3 Hari";
+                if (radioExpress) radioExpress.disabled = false;
             }
 
-            let jml = parseInt(inputJumlah.value) || 0;
-            if (jml < 1) return box.classList.add('hidden');
-
             const waktu = document.querySelector('input[name="waktu"]:checked').value;
-            
-            let subtotal = isPromo ? 100000 : hargaBase * jml;
-            let biayaWaktu = waktu === "Express" ? (15000 * jml) : 0;
-            let totalSementara = subtotal + biayaWaktu;
+            let biayaWaktu = waktu === "Express" ? (15000 * totalQty) : 0;
+            let totalSementara = totalSubtotal + biayaWaktu;
 
-            // Kalkulasi potongan diskon voucher jika ada voucher aktif
+            // Kalkulasi potongan diskon voucher
             let diskonPotongan = 0;
             if (activeVoucher) {
-                const discString = activeVoucher.discount; // cth: "20%" atau "15000"
+                const discString = activeVoucher.discount;
                 if (discString.includes("%")) {
                     const persen = parseFloat(discString.replace("%", "")) || 0;
-                    // PERBAIKAN: Diskon persen sekarang dihitung dari totalSementara (Subtotal + Express)
                     diskonPotongan = Math.round(totalSementara * (persen / 100));
                 } else {
                     diskonPotongan = parseInt(discString.replace(/[^0-9]/g, '')) || 0;
                 }
                 
                 if (diskonPotongan > totalSementara) diskonPotongan = totalSementara;
-
                 activeVoucher.valueRp = diskonPotongan;
 
                 document.getElementById('liveDiscountName').innerText = activeVoucher.code;
@@ -664,8 +782,8 @@
 
             let totalAkhir = totalSementara - diskonPotongan;
 
-            document.getElementById('liveQty').innerText = jml;
-            document.getElementById('liveSubtotal').innerText = formatRupiah(subtotal);
+            document.getElementById('liveQty').innerText = totalQty;
+            document.getElementById('liveSubtotal').innerText = formatRupiah(totalSubtotal);
             document.getElementById('liveWaktuLabel').innerText = (waktu === "Express" ? "(Express)" : "(Reguler)");
             document.getElementById('liveWaktuBiaya').innerText = biayaWaktu > 0 ? "+ " + formatRupiah(biayaWaktu) : "Rp 0";
             document.getElementById('liveTotal').innerText = formatRupiah(totalAkhir);
@@ -683,7 +801,12 @@
             if(modalId === 'formModal') document.getElementById(modalId).style.display = '';
             if(modalId === 'receiptModal') {
                 document.getElementById('orderForm').reset();
-                resetVoucherUI();
+                activeVoucher = null;
+                const feedbackBox = document.getElementById('voucherFeedback');
+                feedbackBox.classList.add('hidden');
+                const inputField = document.getElementById('voucherCodeInput');
+                inputField.classList.remove('border-green-500', 'border-red-500', 'bg-green-50', 'bg-red-50');
+                inputField.classList.add('border-slate-300');
             }
             updateLivePrice();
         }
@@ -694,40 +817,80 @@
             return dt.toLocaleDateString('id-ID', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
         }
 
-        function calculateEstimasi(pickupString, tipe) {
+        function calculateEstimasi(pickupString, tipe, layananName) {
             if(!pickupString) return "-";
             const dt = new Date(pickupString);
-            dt.setDate(dt.getDate() + (tipe === "Express" ? 1 : 3));
+            
+            let daysToAdd = 3; // Default reguler
+            // Cek string gabungan layanan apakah mengandung unyellowing
+            if (layananName && layananName.includes("Unyellowing")) {
+                daysToAdd = 9; // Khusus Unyellowing butuh 9 Hari
+            } else if (tipe === "Express") {
+                daysToAdd = 1;
+            }
+            
+            dt.setDate(dt.getDate() + daysToAdd);
             return dt.toLocaleDateString('id-ID', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
         }
 
         function handleFormSubmit(e) {
             e.preventDefault();
-
             const randomNo = "CS-" + Math.floor(100000 + Math.random() * 900000);
-            const layananRaw = document.getElementById('layanan').value;
-            const layananData = layananRaw.split("|");
-            const namaLayanan = layananData[0];
-            const hargaDasar = parseInt(layananData[1]);
             
-            const jml = parseInt(document.getElementById('jumlah').value);
-            const waktu = document.querySelector('input[name="waktu"]:checked').value;
-            const isPromo = namaLayanan.includes("Promo 3 Pasang");
+            // Loop untuk mengumpulkan semua data layanan
+            let arrLayananText = [];
+            let arrMerkText = [];
+            let detailsForReceipt = []; // Array of objects untuk dirender di struk thermal
+            let totalSubtotal = 0;
+            let totalQty = 0;
+            let isUnyellowingExist = false;
 
-            let subtotal = isPromo ? 100000 : (hargaDasar * jml);
-            let expressFee = waktu === "Express" ? (15000 * jml) : 0;
-            let totalSementara = subtotal + expressFee;
+            document.querySelectorAll('.service-item').forEach(item => {
+                const raw = item.querySelector('.input-layanan').value;
+                const merk = item.querySelector('.input-merk').value;
+                const qty = parseInt(item.querySelector('.input-qty').value) || 0;
+
+                if(raw && qty > 0) {
+                    const lData = raw.split("|");
+                    const nama = lData[0];
+                    const hargaBase = parseInt(lData[1]);
+                    const isPromo = nama.includes("Promo 3 Pasang");
+                    
+                    if (nama.includes("Unyellowing")) isUnyellowingExist = true;
+
+                    let sub = isPromo ? 100000 : (hargaBase * qty);
+                    totalSubtotal += sub;
+                    totalQty += qty;
+
+                    arrLayananText.push(nama);
+                    arrMerkText.push(`${merk} (${qty} psg)`);
+
+                    detailsForReceipt.push({
+                        layanan: nama,
+                        merk: merk,
+                        qty: qty,
+                        hargaLabel: isPromo ? "PROMO" : "@" + formatRupiah(hargaBase)
+                    });
+                }
+            });
+            
+            // Gabungkan string untuk spreadsheet (kolom layanan & merk)
+            const stringLayanan = arrLayananText.join(" + ");
+            const stringMerk = arrMerkText.join(", ");
+
+            const waktu = document.querySelector('input[name="waktu"]:checked').value;
+            let expressFee = waktu === "Express" ? (15000 * totalQty) : 0;
+            let totalSementara = totalSubtotal + expressFee;
 
             let diskonRp = 0;
             let voucherCodeStr = "-";
 
-            // PERBAIKAN: Kalkulasi ulang secara aman saat tombol diklik
             if (activeVoucher) {
                 voucherCodeStr = activeVoucher.code;
                 const discString = activeVoucher.discount;
                 if (discString.includes("%")) {
                     const persen = parseFloat(discString.replace("%", "")) || 0;
-                    diskonRp = Math.round(totalSementara * (persen / 100));
+                    diskonRp = Math.round(totalSementara * (persen / 100)); 
                 } else {
                     diskonRp = parseInt(discString.replace(/[^0-9]/g, '')) || 0;
                 }
@@ -742,7 +905,6 @@
             const pickup = document.getElementById('jadwal').value;
             const catatanAsli = document.getElementById('catatan').value || '-';
 
-            // KUNCI: Gabungkan info voucher ke kolom Catatan agar masuk ke sistem admin (Script Utama) Anda
             let catatanGabungan = catatanAsli;
             if (activeVoucher) {
                 catatanGabungan = `[VOUCHER: ${voucherCodeStr} (Potong ${formatRupiah(diskonRp)})] - ${catatanAsli}`;
@@ -754,24 +916,29 @@
                 nohp: noHp,
                 alamat: document.getElementById('alamat').value,
                 lokasi: document.getElementById('lokasi').value || 'Tidak dicantumkan',
-                merk: document.getElementById('merk').value,
-                layanan: namaLayanan,
-                qty: jml,
+                
+                // Gunakan string gabungan untuk dimasukkan ke Spreadsheet
+                merk: stringMerk,
+                layanan: stringLayanan, 
+                qty: totalQty,
+                
                 waktu: waktu,
                 bayar: document.getElementById('pembayaran').value,
                 jadwal: formatDateDisplay(pickup),
-                estimasi: calculateEstimasi(pickup, waktu),
-                catatan: catatanGabungan, // Di-append masuk kolom Spreadsheet lama
+                estimasi: calculateEstimasi(pickup, waktu, stringLayanan), // Pass string layanan
+                catatan: catatanGabungan, 
                 
-                hargasatuan_rp: isPromo ? "-" : "@" + formatRupiah(hargaDasar),
-                subtotal_rp: formatRupiah(subtotal),
+                hargasatuan_rp: (arrLayananText.length > 1) ? "MULTI" : detailsForReceipt[0].hargaLabel, // Tampilkan Multi jika lebih dari 1
+                subtotal_rp: formatRupiah(totalSubtotal),
                 waktulabel: waktu === "Express" ? "SPEED: EXPRESS (+15K/PSG)" : "SPEED: REGULER",
                 waktubiaya_rp: expressFee > 0 ? formatRupiah(expressFee) : "Rp 0",
                 total_rp: formatRupiah(totalAkhir),
                 
-                // Tambahan khusus untuk dipakai di form kirim wa
                 voucher_code: voucherCodeStr,
-                voucher_potongan_rp: formatRupiah(diskonRp)
+                voucher_potongan_rp: formatRupiah(diskonRp),
+                
+                // Data JSON extra untuk keperluan render struk / WA
+                itemsDetail: detailsForReceipt
             };
 
             closeModal('formModal');
@@ -779,7 +946,7 @@
             document.getElementById('loadingModal').style.display = 'flex';
             document.getElementById('loadingText').innerText = "Menyiapkan Pesanan Anda...";
 
-            // POST Menggunakan Script URL Utama Anda (Script Lama)
+            // POST Menggunakan Script URL Utama
             fetch(scriptURL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -793,7 +960,6 @@
 
                 const now = new Date();
                 
-                // DOM Render Struk Thermal
                 document.getElementById('r-noorder').innerText = orderData.no;
                 document.getElementById('r-tglorder').innerText = now.toLocaleDateString('id-ID', {day:'2-digit', month:'2-digit', year:'2-digit'});
                 document.getElementById('r-jamorder').innerText = now.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
@@ -802,16 +968,29 @@
                 document.getElementById('r-nohp').innerText = "+" + orderData.nohp;
                 document.getElementById('r-alamat').innerText = orderData.alamat;
                 
-                document.getElementById('r-layanan').innerText = orderData.layanan;
-                document.getElementById('r-merk').innerText = "Merk: " + orderData.merk;
-                document.getElementById('r-qty').innerText = orderData.qty + " PSG";
-                document.getElementById('r-hargasatuan').innerText = orderData.hargasatuan_rp;
+                // RENDER ITEM MULTIPLE KE STRUK THERMAL
+                const containerItem = document.getElementById('r-items-container');
+                containerItem.innerHTML = ""; // Bersihkan dulu
+                
+                orderData.itemsDetail.forEach(item => {
+                    const rowHTML = `
+                    <div class="flex justify-between items-start mb-1 uppercase">
+                        <div class="flex-1 pr-2">
+                            <span class="block font-bold break-words">${item.layanan}</span>
+                            <span class="text-[10px] break-words">Merk: ${item.merk}</span>
+                        </div>
+                        <div class="text-right whitespace-nowrap">
+                            <span class="block">${item.qty} PSG</span>
+                            <span class="text-[10px]">${item.hargaLabel}</span>
+                        </div>
+                    </div>`;
+                    containerItem.insertAdjacentHTML('beforeend', rowHTML);
+                });
                 
                 document.getElementById('r-subtotal').innerText = orderData.subtotal_rp;
                 document.getElementById('r-waktulabel').innerText = orderData.waktulabel;
                 document.getElementById('r-waktubiaya').innerText = orderData.waktubiaya_rp;
 
-                // Tampilkan Voucher di Struk Kasir jika ada
                 const rDiscountRow = document.getElementById('r-discountRow');
                 if (activeVoucher) {
                     document.getElementById('r-discountCode').innerText = voucherCodeStr;
@@ -843,14 +1022,20 @@
         }
 
         function sendToWhatsApp() {
+            // Build string layanan untuk WA dengan format list/bullet point
+            let listLayananWA = "";
+            orderData.itemsDetail.forEach((item, index) => {
+                listLayananWA += `${index+1}. ${item.layanan} | ${item.merk} (${item.qty} Psg)\n`;
+            });
+
             const txt = `Halo Min, saya mau order cuci sepatu. Berikut detail pesanan saya ya:
 
 🧾 *NO. ORDER: ${orderData.no}*
 
 *DETAIL PESANAN:*
-• Layanan: ${orderData.layanan}
-• Sepatu: ${orderData.merk} (${orderData.qty} Pasang)
+${listLayananWA}
 • Pengerjaan: ${orderData.waktu}
+• Total Sepatu: ${orderData.qty} Pasang
 
 ${activeVoucher ? `*Voucher Digunakan:* ${orderData.voucher_code} (Potongan ${orderData.voucher_potongan_rp})\n` : ''}*TOTAL BIAYA AKHIR: ${orderData.total_rp}*
 _(Rencana Bayar: ${orderData.bayar})_
